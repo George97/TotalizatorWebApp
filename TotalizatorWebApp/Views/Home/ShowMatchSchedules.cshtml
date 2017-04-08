@@ -1,0 +1,24 @@
+﻿<table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Home Team</th>
+                <th>Guest Team</th>
+                <th>Match Date</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr ng-repeat="m in vm.matches">
+                    <td>{{m}}</td>
+                    @*<td>{{m.HomeTeam.Name}}</td>
+                    <td>{{m.GuestTeam.Name}}</td>
+                    <td>{{m.MatchDate}}</td>*@
+                    @*<td>
+                        <input type="text" id="totName"/>
+                    </td>
+                    <td>
+                        <button class="btn-info createBtn" onclick="onAdd(this.parentElement)">Add</button>
+                    </td>*@
+                </tr>
+            
+        </tbody>
+    </table>

@@ -1,0 +1,23 @@
+﻿<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Home Team</th>
+            <th>Guest Team</th>
+            <th>Match Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="m in vm.matches">
+            <td>{{m.HomeTeamName}}</td>
+                <td>{{m.GuestTeamName}}</td>
+                <td>{{m.MatchDate | jsDate | date:"yy-MM-dd   HH:mm"}}</td>
+                <td>
+                    <input type="text" value="{{vm.Title}}"/>
+                </td>
+                <td>
+                    <button class="btn-info" onclick="{{vm.onAdd()}}">Add</button>
+                </td>
+        </tr>
+
+    </tbody>
+</table>

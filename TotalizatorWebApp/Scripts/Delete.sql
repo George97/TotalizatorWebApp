@@ -1,0 +1,2 @@
+﻿DROP TABLE MatchSchedule;
+DROP TABLE TEAM;
