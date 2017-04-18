@@ -7,15 +7,14 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="m in vm.matches">
-            <td>{{m.HomeTeamName}}</td>
-                <td>{{m.GuestTeamName}}</td>
-                <td>{{m.MatchDate | jsDate | date:"yy-MM-dd   HH:mm"}}</td>
+        <tr ng-repeat="match in vm.matches">
+            <td>{{match.HomeTeamName}}</td>
+                <td>{{match.GuestTeamName}}</td>
+                <td>{{match.MatchDate | jsDate | date:"yy-MM-dd   HH:mm"}}</td>
                 <td>
-                    <input type="text" value="{{vm.Title}}"/>
-                </td>
-                <td>
-                    <button class="btn-info" onclick="{{vm.onAdd()}}">Add</button>
+                    <button class="btn-info" id="{{match.Id}}" ng-click="vm.onAdd(match.Id); $event.stopPropagation();"state-button ng-disabled="disabled"+"{{match.Id}}">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
                 </td>
         </tr>
 

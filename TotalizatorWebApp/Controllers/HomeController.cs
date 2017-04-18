@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TotalizatorWebApp.Context;
 using TotalizatorWebApp.Models;
 using TotalizatorWebApp.Models.DTO;
 
@@ -13,30 +14,44 @@ namespace TotalizatorWebApp.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            TotalizatorContext context = new TotalizatorContext();
-            var teams = context.Teams.ToArray<Team>();
-            return View();
+                return View();
         }
 
         [HttpGet]
         public JsonResult GetMatches()
         {
-                TotalizatorContext db = new TotalizatorContext();
-                var matches = db.MatchSchedules.Select((m) => new MatchScheduleDTO()
+            using (TotalizatorContext db = new TotalizatorContext())
+            {
+                var matches = db.Matches.Select((m) => new MatchScheduleDTO()
                 {
-                    ID = m.ID,
+                    Id = m.MatchId,
                     HomeTeamName = m.HomeTeam.Name,
                     GuestTeamName = m.GuestTeam.Name,
-                    MatchDate = m.MatchDate
+                    MatchDate = m.Date
                 }).ToList<MatchScheduleDTO>();
-                return Json(matches, JsonRequestBehavior.AllowGet);
 
+                return Json(matches, JsonRequestBehavior.AllowGet);
             }
-            public ActionResult CreateTotalizator()
-            {
-                return RedirectToAction("Index","Home");
-            }
+
         }
 
+        [HttpPost]
+        public void AddTotalizator(int MatchId)
+        {
+            using (TotalizatorContext db = new TotalizatorContext())
+            {
+                Match match = db.Matches.Where(m => m.MatchId == MatchId).Single();
+                Totalizator totalizator = new Totalizator()
+                {
+                    MatchId = MatchId,
+                    Match = match
+                };
+
+                db.Totalizators.Add(totalizator);
+                db.SaveChanges();
+            }
+        }
     }
+
+    
 }
