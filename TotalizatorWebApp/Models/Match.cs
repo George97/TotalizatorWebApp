@@ -13,6 +13,16 @@ namespace TotalizatorWebApp.Models
             Totalizators = new HashSet<Totalizator>();
         }
 
+        public Match(Match m)
+        {
+            MatchId = m.MatchId;
+            Date = m.Date;
+            HomeTeamId = m.HomeTeamId;
+            GuestTeamId = m.GuestTeamId;
+            HomeTeam = m.HomeTeam;
+            GuestTeam = m.GuestTeam;
+        }
+
         public int MatchId { get; set; }
 
         public DateTime Date { get; set; }

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace TotalizatorWebApp.Models.DTO
+namespace TotalizatorWebApp.Models.View
 {
-    public class TeamDTO
+    public class TeamView
     {
         public int ID { get; set; }
         public string Name { get; set; }

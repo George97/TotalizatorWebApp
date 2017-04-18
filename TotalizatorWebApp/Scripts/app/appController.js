@@ -14,15 +14,22 @@
     function AppController($scope,$filter, appService) {
         var app = this;
         app.matches = [];
+        app.totalizators = [];
         app.Title = "";
 
         Init();
+
         function Init() {
             var appPromise = appService.getMatches();
             appPromise.then(function (response) {
                 app.matches = response.data;
-            })
+            });
+            var appPromise2 = appService.getTotalizators();
+            appPromise2.then(function (response) {
+                app.totalizators = response.data;
+            });
         }
+
         app.onAdd = function (MatchId) {
             appService.addTotalizator(MatchId).
                 then(function (response) {
@@ -30,6 +37,15 @@
                 }, function (response) {
                     alert('Failed add totalizator operation!!');
                 });
+        }
+        
+        app.showTotalizator = function () {
+            console.log('showTotalizator');
+            var appPromise = appService.getTotalizators();
+            appPromise.then(function (response) {
+                app.totalizators = response.data;
+            });
+            //location.href = "/User/ShowTotalizators";
         }
 
         function setSuccessState(MatchId) {

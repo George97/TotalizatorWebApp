@@ -4,11 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace TotalizatorWebApp.Controllers.Admin
+namespace TotalizatorWebApp.Controllers.User
 {
-    public class AdminController : Controller
+    public class UserController : Controller
     {
-        public ActionResult GetMatchSchedule()
+        // GET: User
+        public ActionResult ShowTotalizators()
         {
             return View();
         }

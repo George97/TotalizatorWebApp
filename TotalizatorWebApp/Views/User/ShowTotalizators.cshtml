@@ -1,0 +1,19 @@
+﻿
+<table class="table table-striped">
+    <tbody>
+        <tr ng-repeat="t in vm.totalizators">
+            <td>{{t.HomeTeamName}}</td>
+            <td>
+                <span>
+                    <input type="text" value="{{t.HomeTeamGoals}}" style="width:30px;" />
+                    <span> : </span>
+                    <input type="text" value="{{t.GuestTeamPoints}}" style="width:30px;"/>
+                </span>
+            </td>
+            <td>{{t.GuestTeamName}}</td>
+            <td>{{t.MatchDate | jsDate | date:"yy-MM-dd   HH:mm"}}</td>
+        </tr>
+
+    </tbody>
+</table>
+

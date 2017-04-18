@@ -7,7 +7,8 @@
     function appService($http) {
         var service = {
             getMatches: _getMatches,
-            addTotalizator: _addTotalizator
+            addTotalizator: _addTotalizator,
+            getTotalizators: _getTotalizators
         }
         return service;
 
@@ -20,5 +21,12 @@
             var promise = $http.post("/Home/AddTotalizator", { MatchId: id });
             return promise;
         }
+
+        function _getTotalizators() {
+            console.log('getTotalizators');
+            var promise = $http.get("/Home/GetTotalizators");
+            return promise;
+        }
+
     }
 })(angular);

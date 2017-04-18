@@ -152,11 +152,13 @@
     <Compile Include="Context\TotalizatorContext.cs" />
     <Compile Include="Controllers\Admin\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\User\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\DTO\MatchScheduleDTO.cs" />
-    <Compile Include="Models\DTO\TeamDTO.cs" />
+    <Compile Include="Models\View\MatchView.cs" />
+    <Compile Include="Models\View\TeamView.cs" />
+    <Compile Include="Models\View\TotalizatorView.cs" />
     <Compile Include="Models\Forecast.cs" />
     <Compile Include="Models\Match.cs" />
     <Compile Include="Models\Team.cs" />
@@ -179,6 +181,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\ShowMatchSchedules.cshtml" />
     <Content Include="Views\Admin\MatchSchedule.cshtml" />
+    <Content Include="Views\User\ShowTotalizators.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
