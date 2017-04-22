@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace TotalizatorWebApp.Models
+namespace TotalizatorWebApp.Models.MatchLayer
 {
     public class Team
     {

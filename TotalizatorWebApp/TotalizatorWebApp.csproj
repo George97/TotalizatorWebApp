@@ -137,8 +137,8 @@
     <Content Include="Scripts\app\appService.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\Delete.sql" />
-    <Content Include="Scripts\INSERT.sql" />
+    <Content Include="Scripts\DB\Delete.sql" />
+    <Content Include="Scripts\DB\INSERT.sql" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -156,14 +156,21 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BusinessLayer\Confirmation.cs" />
+    <Compile Include="Models\MatchLayer\League.cs" />
+    <Compile Include="Models\BusinessLayer\Forecast.cs" />
+    <Compile Include="Models\MatchLayer\Result.cs" />
+    <Compile Include="Models\UserLayer\Admin.cs" />
+    <Compile Include="Models\BusinessLayer\PointsAnalysis.cs" />
+    <Compile Include="Models\MatchLayer\Stage.cs" />
     <Compile Include="Models\View\MatchView.cs" />
     <Compile Include="Models\View\TeamView.cs" />
     <Compile Include="Models\View\TotalizatorView.cs" />
-    <Compile Include="Models\Forecast.cs" />
-    <Compile Include="Models\Match.cs" />
-    <Compile Include="Models\Team.cs" />
-    <Compile Include="Models\Totalizator.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\BusinessLayer\TotalizatorManager.cs" />
+    <Compile Include="Models\MatchLayer\Match.cs" />
+    <Compile Include="Models\MatchLayer\Team.cs" />
+    <Compile Include="Models\BusinessLayer\Totalizator.cs" />
+    <Compile Include="Models\UserLayer\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

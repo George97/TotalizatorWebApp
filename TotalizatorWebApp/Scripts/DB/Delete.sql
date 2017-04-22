@@ -2,3 +2,5 @@
 DROP TABLE TEAM;
 DROP TABLE MyUser;
 DROP TABLE Totalizator;
+
+DELETE FROM Teams

@@ -3,15 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace TotalizatorWebApp.Models
+namespace TotalizatorWebApp.Models.UserLayer
 {
-    public class User
+    public class Admin
     {
-        public User()
-        {
-            Forecasts = new HashSet<Forecast>();
-        }
-
         public int Id { get; set; }
 
         public string Login { get; set; }
@@ -19,9 +14,5 @@ namespace TotalizatorWebApp.Models
         public string Password { get; set; }
 
         public string FullName { get; set; }
-
-        public double Points { get; set; }
-
-        public virtual ICollection<Forecast> Forecasts { get; set; }
     }
 }

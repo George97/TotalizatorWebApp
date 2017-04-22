@@ -4,14 +4,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace TotalizatorWebApp.Models
+namespace TotalizatorWebApp.Models.MatchLayer
 {
     public class Match
     {
-        public Match()
-        {
-            Totalizators = new HashSet<Totalizator>();
-        }
 
         public Match(Match m)
         {
@@ -33,10 +29,16 @@ namespace TotalizatorWebApp.Models
         [ForeignKey("GuestTeam")]
         public int GuestTeamId { get; set; }
 
+        [ForeignKey("Stage")]
+        public int StageId { get; set; }
+
         public virtual Team HomeTeam { get; set; }
 
         public virtual Team GuestTeam { get; set; }
 
-        public virtual ICollection<Totalizator> Totalizators { get; set; }
+        public virtual Stage Stage { get; set; }
+
+        public virtual Result Result { get; set; }
+
     }
 }
