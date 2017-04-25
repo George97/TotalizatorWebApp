@@ -148,3 +148,7 @@ D:\YuraMaliuha\EF\TotalizatorProject\TotalizatorWebApp\TotalizatorWebApp\bin\Sys
 D:\YuraMaliuha\EF\TotalizatorProject\TotalizatorWebApp\TotalizatorWebApp\obj\Debug\TotalizatorWebApp.csprojResolveAssemblyReference.cache
 D:\YuraMaliuha\EF\TotalizatorProject\TotalizatorWebApp\TotalizatorWebApp\obj\Debug\TotalizatorWebApp.dll
 D:\YuraMaliuha\EF\TotalizatorProject\TotalizatorWebApp\TotalizatorWebApp\obj\Debug\TotalizatorWebApp.pdb
+D:\YuraMaliuha\EF\TotalizatorProject\TotalizatorWebApp\TotalizatorWebApp\bin\TotalizatorWebApp.DAL.dll
+D:\YuraMaliuha\EF\TotalizatorProject\TotalizatorWebApp\TotalizatorWebApp\bin\TotalizatorWebApp.Database.dll
+D:\YuraMaliuha\EF\TotalizatorProject\TotalizatorWebApp\TotalizatorWebApp\bin\TotalizatorWebApp.DAL.pdb
+D:\YuraMaliuha\EF\TotalizatorProject\TotalizatorWebApp\TotalizatorWebApp\bin\TotalizatorWebApp.Database.pdb

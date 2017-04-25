@@ -30,6 +30,8 @@ namespace TotalizatorWebApp.Database.Entity.BusinessLayer
 
         public User Organaizer { get; set; }
 
+        public DateTime Validity { get; set; }
+
         public  virtual PointsAnalysis PointsAnalysis { get; set; }
 
         public virtual ICollection<TotalizatorManager> TotalizatorManagers { get; set; }

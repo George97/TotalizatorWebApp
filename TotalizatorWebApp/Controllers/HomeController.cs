@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TotalizatorWebApp.DAL.Concrete.UnitOfWork;
+using TotalizatorWebApp.Helpers;
 //using TotalizatorWebApp.Context;
 //using TotalizatorWebApp.Models.BusinessLayer;
 //using TotalizatorWebApp.Models.MatchLayer;
@@ -13,9 +15,11 @@ namespace TotalizatorWebApp.Controllers
 {
     public class HomeController : Controller
     {
+        private UnitOfWork unitOfWork = new UnitOfWork();
         // GET: Home
         public ActionResult Index()
         {
+            var matches = EntityListParser.ListParser(unitOfWork.MatchRepository.GetMatches(2));
             //using (TotalizatorContext db = new TotalizatorContext())
             //{
             //    Models.UserLayer.Admin admin = new Models.UserLayer.Admin(){ FullName = "Yura Maluga" };

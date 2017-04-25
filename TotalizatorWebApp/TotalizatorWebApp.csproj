@@ -130,7 +130,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Controllers\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\app\appController.js" />
     <Content Include="Scripts\app\appModule.js" />
@@ -155,6 +155,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\EntityListParser.cs" />
+    <Compile Include="Helpers\EntityParser.cs" />
     <Compile Include="Models\MatchView.cs" />
     <Compile Include="Models\TeamView.cs" />
     <Compile Include="Models\TotalizatorView.cs" />
@@ -168,9 +170,9 @@
     </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Controllers\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Controllers\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Controllers\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\ShowMatchSchedules.cshtml" />
@@ -185,6 +187,16 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TotalizatorWebApp.DAL\TotalizatorWebApp.DAL.csproj">
+      <Project>{e6483b11-a121-4105-968e-5fed3affa027}</Project>
+      <Name>TotalizatorWebApp.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TotalizatorWebApp.Database\TotalizatorWebApp.Database.csproj">
+      <Project>{59061e49-7573-49e1-8b7d-f00cd64333ed}</Project>
+      <Name>TotalizatorWebApp.Database</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

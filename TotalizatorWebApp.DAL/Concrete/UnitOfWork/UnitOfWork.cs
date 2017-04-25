@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TotalizatorWebApp.DAL.Abstraction.Repositories;
+using TotalizatorWebApp.DAL.Concrete.Repository;
 using TotalizatorWebApp.Database.Context;
 
 namespace TotalizatorWebApp.DAL.Concrete.UnitOfWork
@@ -12,6 +13,7 @@ namespace TotalizatorWebApp.DAL.Concrete.UnitOfWork
     {
         private TotalizatorContext context;
         private IMatchRepository matchRepository;
+        private ITotalizatorRepository totalizatorRepository;
 
         public UnitOfWork()
         {
@@ -24,6 +26,14 @@ namespace TotalizatorWebApp.DAL.Concrete.UnitOfWork
             get
             {
                 return matchRepository ?? (matchRepository = new MatchRepository(context));
+            }
+        }
+
+        public ITotalizatorRepository TotalizatorRepository
+        {
+            get
+            {
+                return totalizatorRepository ?? (totalizatorRepository = new TotalizatorRepository(context));
             }
         }
 

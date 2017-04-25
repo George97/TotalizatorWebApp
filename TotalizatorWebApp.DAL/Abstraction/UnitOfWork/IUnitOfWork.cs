@@ -10,5 +10,9 @@ namespace TotalizatorWebApp.DAL.Abstraction.UnitOfWork
     interface IUnitOfWork
     {
         IMatchRepository MatchRepository { get; }
+
+        ITotalizatorRepository TotalizatorRepository { get; }
+
+        IUserRepository UserRepository { get; }
     }
 }
