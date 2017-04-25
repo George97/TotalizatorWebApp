@@ -1,0 +1,9 @@
+D:\YuraMaliuha\EF\TotalizatorProject\TotalizatorWebApp\TotalizatorWebApp.DAL\bin\Debug\TotalizatorWebApp.DAL.dll
+D:\YuraMaliuha\EF\TotalizatorProject\TotalizatorWebApp\TotalizatorWebApp.DAL\bin\Debug\TotalizatorWebApp.DAL.pdb
+D:\YuraMaliuha\EF\TotalizatorProject\TotalizatorWebApp\TotalizatorWebApp.DAL\bin\Debug\TotalizatorWebApp.Database.dll
+D:\YuraMaliuha\EF\TotalizatorProject\TotalizatorWebApp\TotalizatorWebApp.DAL\bin\Debug\EntityFramework.dll
+D:\YuraMaliuha\EF\TotalizatorProject\TotalizatorWebApp\TotalizatorWebApp.DAL\bin\Debug\TotalizatorWebApp.Database.pdb
+D:\YuraMaliuha\EF\TotalizatorProject\TotalizatorWebApp\TotalizatorWebApp.DAL\bin\Debug\EntityFramework.xml
+D:\YuraMaliuha\EF\TotalizatorProject\TotalizatorWebApp\TotalizatorWebApp.DAL\obj\Debug\TotalizatorWebApp.DAL.csprojResolveAssemblyReference.cache
+D:\YuraMaliuha\EF\TotalizatorProject\TotalizatorWebApp\TotalizatorWebApp.DAL\obj\Debug\TotalizatorWebApp.DAL.dll
+D:\YuraMaliuha\EF\TotalizatorProject\TotalizatorWebApp\TotalizatorWebApp.DAL\obj\Debug\TotalizatorWebApp.DAL.pdb

@@ -149,28 +149,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Context\TotalizatorContext.cs" />
     <Compile Include="Controllers\Admin\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\User\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\BusinessLayer\Confirmation.cs" />
-    <Compile Include="Models\MatchLayer\League.cs" />
-    <Compile Include="Models\BusinessLayer\Forecast.cs" />
-    <Compile Include="Models\MatchLayer\Result.cs" />
-    <Compile Include="Models\UserLayer\Admin.cs" />
-    <Compile Include="Models\BusinessLayer\PointsAnalysis.cs" />
-    <Compile Include="Models\MatchLayer\Stage.cs" />
-    <Compile Include="Models\View\MatchView.cs" />
-    <Compile Include="Models\View\TeamView.cs" />
-    <Compile Include="Models\View\TotalizatorView.cs" />
-    <Compile Include="Models\BusinessLayer\TotalizatorManager.cs" />
-    <Compile Include="Models\MatchLayer\Match.cs" />
-    <Compile Include="Models\MatchLayer\Team.cs" />
-    <Compile Include="Models\BusinessLayer\Totalizator.cs" />
-    <Compile Include="Models\UserLayer\User.cs" />
+    <Compile Include="Models\MatchView.cs" />
+    <Compile Include="Models\TeamView.cs" />
+    <Compile Include="Models\TotalizatorView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
