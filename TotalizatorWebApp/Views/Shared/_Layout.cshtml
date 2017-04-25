@@ -7,9 +7,12 @@
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/libs/angular.js"></script>
 </head>
 <body>
-    <div class="content" ng-app="appModule">
+    <div class="content">
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -27,7 +30,7 @@
             </div>
         </div>
 
-        <div class="container body-content " ng-controller="AppController as vm">
+        <div class="container body-content ">
             @RenderBody()
             <hr />
             <footer>
@@ -35,13 +38,10 @@
             </footer>
         </div>
     </div>
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/libs/angular.js"></script>
 
-    <script src="~/Scripts/app/appModule.js"></script>
+    @*<script src="~/Scripts/app/appModule.js"></script>
     <script src="~/Scripts/app/appController.js"></script>
-    <script src="~/Scripts/app/appService.js"></script>
+    <script src="~/Scripts/app/appService.js"></script>*@
 </body>
 
 </html>

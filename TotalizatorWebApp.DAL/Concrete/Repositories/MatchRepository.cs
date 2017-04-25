@@ -20,17 +20,18 @@ namespace TotalizatorWebApp.DAL.Concrete.Repositories
         }
         public List<League> GetLeagues()
         {
-            return context.Leagues.ToList<League>();
+            return context.Leagues.ToList();
         }
 
         public List<Match> GetMatches(int stageId)
         {
-            return context.Matches.Where(m => m.StageId == stageId).ToList<Match>();
+            //return context.Matches.Where(m => m.StageId == stageId).ToList();
+            return context.Matches.ToList();
         }
 
         public List<Stage> GetStages(int leagueId)
         {
-            return context.Stages.Where(s => s.LeagueId == leagueId).ToList<Stage>();
+            return context.Stages.Where(s => s.LeagueId == leagueId).ToList();
         }
     }
 }

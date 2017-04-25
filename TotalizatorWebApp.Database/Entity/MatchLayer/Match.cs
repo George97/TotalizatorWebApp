@@ -3,22 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using TotalizatorWebApp.Database.Entity.Abstract;
+using TotalizatorWebApp.Database.Models;
 
 namespace TotalizatorWebApp.Database.Entity.MatchLayer
 {
-    public class Match
+    public class Match: IEntity<MatchView>
     {
-
-        public Match(Match m)
-        {
-            MatchId = m.MatchId;
-            Date = m.Date;
-            HomeTeamId = m.HomeTeamId;
-            GuestTeamId = m.GuestTeamId;
-            HomeTeam = m.HomeTeam;
-            GuestTeam = m.GuestTeam;
-        }
-
         public int MatchId { get; set; }
 
         public DateTime Date { get; set; }
@@ -40,5 +31,14 @@ namespace TotalizatorWebApp.Database.Entity.MatchLayer
 
         public virtual Result Result { get; set; }
 
+        public MatchView Parse()
+        {
+            return new MatchView()
+            {
+                Id = this.MatchId,
+                HomeTeamName = this.HomeTeam.Name,
+                GuestTeamName = this.GuestTeam.Name
+            };
+        }
     }
 }

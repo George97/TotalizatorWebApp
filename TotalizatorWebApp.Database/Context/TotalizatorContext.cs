@@ -12,7 +12,7 @@ namespace TotalizatorWebApp.Database.Context
 {
     public class TotalizatorContext : DbContext
     {
-        public TotalizatorContext() : base("TotalizatorLocalDB")
+        public TotalizatorContext() : base("TotalizatorAppDB")
         {
             System.Data.Entity.Database.SetInitializer<TotalizatorContext>(new DropCreateDatabaseIfModelChanges<TotalizatorContext>());
         }

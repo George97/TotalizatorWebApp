@@ -19,7 +19,8 @@ namespace TotalizatorWebApp.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            var matches = EntityListParser.ListParser(unitOfWork.MatchRepository.GetMatches(2));
+            //unitOfWork.Save();
+            //var matches = EntityListParser.ListParser(unitOfWork.MatchRepository.GetMatches(1));
             //using (TotalizatorContext db = new TotalizatorContext())
             //{
             //    Models.UserLayer.Admin admin = new Models.UserLayer.Admin(){ FullName = "Yura Maluga" };

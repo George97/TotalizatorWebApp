@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TotalizatorWebApp.DAL.Abstraction.Repositories;
-using TotalizatorWebApp.DAL.Concrete.Repository;
+using TotalizatorWebApp.DAL.Concrete.Repositories;
 using TotalizatorWebApp.Database.Context;
 
 namespace TotalizatorWebApp.DAL.Concrete.UnitOfWork
