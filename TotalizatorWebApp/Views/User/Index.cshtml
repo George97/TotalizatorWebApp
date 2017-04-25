@@ -1,0 +1,10 @@
+﻿<div class="main" ng-app="userModule">
+    <div ng-controller="UserNgController as vm">
+        <ul>
+            <li ng-repeat="l in vm.leagues">{{l.Name}}</li>
+        </ul>
+    </div>
+</div>
+<script src="~/Scripts/angular/user/userModule.js"></script>
+<script src="~/Scripts/angular/user/userController.js"></script>
+<script src="~/Scripts/angular/user/userService.js"></script>

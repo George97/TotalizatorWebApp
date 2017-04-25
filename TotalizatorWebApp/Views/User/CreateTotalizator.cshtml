@@ -1,0 +1,15 @@
+﻿<div class="main" ng-app="userModule">
+    <div ng-controller="UserNgController as vm">
+        <select name="selectLeague" ng-model="vm.currLeague">
+            <option ng-repeat="l in vm.leagues" value="{{l.Name}}" ng-click="vm.onChahgeCB()">{{l.Name}}</option>
+        </select>
+        <div class="stagesList">
+            <ul>
+                <li ng-repeat="s in vm.selectedLeague"></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/angular/user/userModule.js"></script>
+<script src="~/Scripts/angular/user/userController.js"></script>
+<script src="~/Scripts/angular/user/userService.js"></script>
