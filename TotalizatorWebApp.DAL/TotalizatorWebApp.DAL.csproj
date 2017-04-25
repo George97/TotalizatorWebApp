@@ -50,7 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstraction\Repositories\IMatchRepository.cs" />
-    <Compile Include="Abstraction\Repositories\Interface1.cs" />
+    <Compile Include="Abstraction\Repositories\IUserRepository.cs" />
     <Compile Include="Abstraction\Repositories\ITotalizatorRepository.cs" />
     <Compile Include="Abstraction\UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="Concrete\Repositories\MatchRepository.cs" />
