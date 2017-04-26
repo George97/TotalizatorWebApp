@@ -12,5 +12,7 @@ namespace TotalizatorWebApp.DAL.Abstraction.Repositories
         List<Totalizator> GetTotalizators();
 
         int GetNextIndex();
+
+        void AddUser(int toalizatorId, int userId);
     }
 }

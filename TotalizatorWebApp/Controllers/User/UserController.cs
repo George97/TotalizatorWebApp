@@ -97,7 +97,7 @@ namespace TotalizatorWebApp.Controllers.User
         [HttpPost]
         public void SetTotalizatorUser(int userId,int totalizatorId)
         {
-
+            unitOfWork.TotalizatorRepository.AddUser(userId, totalizatorId);
         }
 
         public JsonResult GetNextTotalizatorId()

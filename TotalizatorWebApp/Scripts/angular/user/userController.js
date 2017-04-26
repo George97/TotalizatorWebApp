@@ -51,12 +51,10 @@
                 app.users = respond.data;
             })
 
-            userService.getNextTotalizatorId().then(function (respond) {
-                app.currTotalizatorIndex = respond.data;
-            })
-            //userService.getLeague(1).then(function (respond) {
-            //    app.currLeague = respond.data;
-            //});
+            //userService.getNextTotalizatorId().then(function (respond) {
+            //    app.currTotalizatorIndex = respond.data;
+            //})
+            
 
         }
     }
