@@ -1,12 +1,49 @@
 ﻿<div class="main" ng-app="userModule">
     <div ng-controller="UserNgController as vm">
-        <select name="selectLeague" ng-model="vm.currLeague">
-            <option ng-repeat="l in vm.leagues" value="{{l.Name}}" ng-click="vm.onChahgeCB()">{{l.Name}}</option>
+        <select name="selectLeague" id="selectLeague" ng-model="vm.currLeagueId" ng-change="vm.onLeagueChange()">
+            <option ng-repeat="l in vm.leagues" value="{{l.LeagueId}}">{{l.Name}}</option>
         </select>
         <div class="stagesList">
             <ul>
-                <li ng-repeat="s in vm.selectedLeague"></li>
+                <li ng-repeat="s in vm.currStages">
+                    <input type="radio" name="selectedStage" value="{{s}}" ng-model="vm.currStage"/>{{s.Name}}<br />
+                </li>
             </ul>
+        </div>
+        <div class="pointsBox">
+            <p>Please set your rules</p>
+
+            <label for="fullPoints">Full</label>
+            <input type="text" name="fullPoints" ng-model="vm.currPoints.Full"/><br />
+
+            <label for="goalDiffPoints">Goal diff</label>
+            <input type="text" name="goalDiffPoints" ng-model="vm.currPoints.GoalDif"/><br />
+
+            <label for="justWinnerPoints">Full</label>
+            <input type="text" name="justWinnerPoints" ng-model="vm.currPoints.JustWinner"/><br />
+        </div>
+        <div class="usersBox">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Login</th>
+                        <th>Full Name</th>
+                        <th>Add</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="u in vm.users">
+                    <td>{{u. Login}}</td>
+                    <td>{{u.FullName}}</td>
+                    <td>
+                        <button class="btn-info" id="{{u.UserId}}" ng-click="vm.onUserAdd(u.UserId);" state-button">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </td>
+                    </tr>
+
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

@@ -17,6 +17,11 @@ namespace TotalizatorWebApp.DAL.Concrete.Repositories
             context = ctx;
         }
 
+        public int GetNextIndex()
+        {
+            return context.Totalizators.Last().TotalizatorId + 1;
+        }
+
         public List<Totalizator> GetTotalizators()
         {
             return context.Totalizators.ToList<Totalizator>();

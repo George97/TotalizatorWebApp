@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using TotalizatorWebApp.Database.Entity.Abstract;
-using TotalizatorWebApp.Database.Models;
+using TotalizatorWebApp.Database.Models.MatchLayer;
 
 namespace TotalizatorWebApp.Database.Entity.MatchLayer
 {

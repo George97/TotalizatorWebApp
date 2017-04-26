@@ -23,6 +23,11 @@ namespace TotalizatorWebApp.DAL.Concrete.Repositories
             return context.Leagues.ToList();
         }
 
+        public League GetLeague(int id)
+        {
+            return context.Leagues.Where(l => l.LeagueId == id).First();
+        }
+
         public List<Match> GetMatches(int stageId)
         {
             //return context.Matches.Where(m => m.StageId == stageId).ToList();

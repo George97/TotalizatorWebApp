@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using TotalizatorWebApp.Database.Entity.MatchLayer;
 
-namespace TotalizatorWebApp.Database.Models
+namespace TotalizatorWebApp.Database.Models.MatchLayer
 {
     public class StageView
     {

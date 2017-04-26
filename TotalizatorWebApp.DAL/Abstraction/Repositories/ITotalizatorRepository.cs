@@ -10,5 +10,7 @@ namespace TotalizatorWebApp.DAL.Abstraction.Repositories
     public interface ITotalizatorRepository
     {
         List<Totalizator> GetTotalizators();
+
+        int GetNextIndex();
     }
 }

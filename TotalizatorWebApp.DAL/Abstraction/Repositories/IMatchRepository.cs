@@ -9,6 +9,8 @@ namespace TotalizatorWebApp.DAL.Abstraction.Repositories
 {
     public interface IMatchRepository
     {
+        League GetLeague(int id);
+
         List<League> GetLeagues();
 
         List<Stage> GetStages(int leagueId);

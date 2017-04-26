@@ -63,11 +63,13 @@
     <Compile Include="Entity\MatchLayer\Team.cs" />
     <Compile Include="Entity\UserLayer\Admin.cs" />
     <Compile Include="Entity\UserLayer\User.cs" />
-    <Compile Include="Models\LeagueView.cs" />
-    <Compile Include="Models\MatchView.cs" />
-    <Compile Include="Models\StageView.cs" />
-    <Compile Include="Models\TeamView.cs" />
-    <Compile Include="Models\TotalizatorView.cs" />
+    <Compile Include="Models\BusinessLayer\PointsAnalysisView.cs" />
+    <Compile Include="Models\MatchLayer\LeagueView.cs" />
+    <Compile Include="Models\MatchLayer\MatchView.cs" />
+    <Compile Include="Models\MatchLayer\StageView.cs" />
+    <Compile Include="Models\MatchLayer\TeamView.cs" />
+    <Compile Include="Models\BusinessLayer\TotalizatorView.cs" />
+    <Compile Include="Models\UserLayer\UserView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -77,6 +79,7 @@
   <ItemGroup>
     <Content Include="Scripts\INSERT.sql" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
