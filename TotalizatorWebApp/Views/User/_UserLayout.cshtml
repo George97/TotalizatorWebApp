@@ -1,0 +1,18 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="sideBar">
+    <div class="menuBtn">
+        <div class="btn-info rondedBtn center">
+            @Html.ActionLink("Create Totalizator", "CreateTotalizator", "User")
+        </div>
+        <div class="btn-info rondedBtn center">
+            @Html.ActionLink("Show Rating", "CreateTotalizator", "User")
+        </div>
+    </div>
+
+</div>
+<div class="mainContent">
+    @RenderBody()
+</div>
