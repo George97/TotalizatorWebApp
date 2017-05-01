@@ -58,6 +58,7 @@
     <Compile Include="Entity\BusinessLayer\TotalizatorManager.cs" />
     <Compile Include="Entity\MatchLayer\League.cs" />
     <Compile Include="Entity\MatchLayer\Match.cs" />
+    <Compile Include="Entity\MatchLayer\ForecastResult.cs" />
     <Compile Include="Entity\MatchLayer\Result.cs" />
     <Compile Include="Entity\MatchLayer\Stage.cs" />
     <Compile Include="Entity\MatchLayer\Team.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="Entity\UserLayer\User.cs" />
     <Compile Include="Models\BusinessLayer\PointsAnalysisView.cs" />
     <Compile Include="Models\MatchLayer\LeagueView.cs" />
+    <Compile Include="Models\MatchLayer\MatchResultView.cs" />
     <Compile Include="Models\MatchLayer\MatchView.cs" />
     <Compile Include="Models\MatchLayer\StageView.cs" />
     <Compile Include="Models\MatchLayer\TeamView.cs" />

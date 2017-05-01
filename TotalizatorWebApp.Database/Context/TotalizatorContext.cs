@@ -27,6 +27,8 @@ namespace TotalizatorWebApp.Database.Context
 
         public DbSet<Result> Results { get; set; }
 
+        public DbSet<ForecastResult> ForecastResults { get; set; }
+
         public DbSet<User> Users { get; set; }
 
         public DbSet<Admin> Admins { get; set; }
@@ -99,6 +101,10 @@ namespace TotalizatorWebApp.Database.Context
                         .HasRequired<TotalizatorManager>(f => f.TotalizatorManager)
                         .WithMany(tm => tm.Forecasts);
 
+            modelBuilder.Entity<ForecastResult>()
+                        .HasRequired<Match>(fr => fr.Match)
+                        .WithMany(m => m.ForecastResults)
+                        .WillCascadeOnDelete(false);
 
 
         }

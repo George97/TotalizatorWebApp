@@ -1,58 +1,64 @@
 ﻿@{ 
     Layout = "~/Views/User/_UserLayout.cshtml";
 }
-<div class="main" ng-app="userModule">
-    <div ng-controller="UserNgController as vm">
+
         <div class="mainForm">
+            <div class="title">
+                <p id="title">TotalizatorName:</p>
+                <input ng-model="vm.tTitle" style="width: 100px;" />
+            </div>
             <p id="title">Please select league</p>
-            <select name="selectLeague" id="selectLeague" ng-model="vm.currLeagueId" ng-change="vm.onLeagueChange()">
+            @*<select name="selectLeague" id="selectLeague" ng-model="vm.currLeagueId" ng-change="vm.onLeagueChange() kendo-combo-box">
                 <option ng-repeat="l in vm.leagues" value="{{l.LeagueId}}">{{l.Name}}</option>
+            </select>*@
+            <select kendo-combo-box
+                    ng-model="vm.currLeagueId"
+                    ng-change="vm.onLeagueChange()"
+                    k-placeholder="'Select league'"
+                    k-data-text-field="'Name'"
+                    k-data-value-field="'LeagueId'"
+                    k-filter="'contains'"
+                    k-auto-bind="true"
+                    k-min-length="3"
+                    k-data-source="leaguesDataSource"
+                    style="width: 100%">
             </select>
+
             <div class="stagesList">
-                <ul>
                     <li ng-repeat="s in vm.currStages">
-                        <input type="radio" name="selectedStage" value="{{s}}" ng-model="vm.currStage"/>{{s.Name}}<br />
+                        <input  type="radio" name="selectedStage" value="{{s.StageId}}" ng-model="vm.tStageId"/>{{s.Name}}<br />
                     </li>
-                </ul>
+            </div>
+            <div class="acces">
+                <p id="title">Access</p>
+                <input type="radio" ng-model="vm.isTPublic" value="Private"/>Private<br />
+                <input type="radio" ng-model="vm.isTPublic" value="Public"/>Public<br />
             </div>
             <div class="pointsBox">
                 <p id="title">Please set your rules</p>
 
-                <label for="fullPoints" id="title">Full</label>
-                <input type="text" name="fullPoints" class="txtInput" ng-model="vm.currPoints.Full"/><br />
+                <div class="box-col">
+                    <span id="title">Full: </span><input kendo-numeric-text-box k-min="0" k-max="100" k-ng-model="vm.tPoints.Full"  style="width: 100px;" />
+                </div>
+                <div class="box-col">
+                    <span id="title">Goal diff: </span><input kendo-numeric-text-box k-min="0" k-max="100" k-ng-model="vm.tPoints.GoalDif"   style="width: 100px;" />
+                </div>
+                <div class="box-col">
+                    <span id="title"> Just winner: </span><input kendo-numeric-text-box k-min="0" k-max="100" k-ng-model="vm.tPoints.JustWinner" style="width: 100px;" />
+                </div>
 
-                <label for="goalDiffPoints" id="title">Goal diff</label>
+                @*<label for="fullPoints" id="title">Full</label>
+                <input type="text" name="fullPoints" class="txtInput" ng-model="vm.currPoints.Full"/><br />*@
+
+                @*<label for="goalDiffPoints" id="title">Goal diff</label>
                 <input type="text" name="goalDiffPoints" class="txtInput" ng-model="vm.currPoints.GoalDif"/><br />
 
                 <label for="justWinnerPoints" id="title">Full</label>
-                <input type="text" class="txtInput" name="justWinnerPoints" ng-model="vm.currPoints.JustWinner"/><br />
+                <input type="text" class="txtInput" name="justWinnerPoints" ng-model="vm.currPoints.JustWinner"/><br />*@
             </div>
-            <div class="usersBox">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th id="title">Login</th>
-                            <th id="title">Full Name</th>
-                            <th id="title">Add</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="u in vm.users">
-                        <td>{{u. Login}}</td>
-                        <td>{{u.FullName}}</td>
-                        <td>
-                            <button class="btn-info" id="{{u.UserId}}" ng-click="vm.onUserAdd(u.UserId);" state-button">
-                                <span class="glyphicon glyphicon-plus"></span>
-                            </button>
-                        </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <button class="btn-info rondedBtn  submitBtn center" type="submit">Add</button>
+            @*<kendo-grid options="mainGridOptions"></kendo-grid>*@
+
+            <button class="btn-info rondedBtn  submitBtn center" ng-click="vm.onAddTotalizator()">Add</button>
         </div>
-    </div>
-</div>
-<script src="~/Scripts/angular/user/userModule.js"></script>
-<script src="~/Scripts/angular/user/userController.js"></script>
-<script src="~/Scripts/angular/user/userService.js"></script>
+
+

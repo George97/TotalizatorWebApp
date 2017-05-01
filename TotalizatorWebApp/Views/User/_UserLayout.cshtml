@@ -3,16 +3,43 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="sideBar">
-    <div class="menuBtn">
+    @*<div class="menuBtn">
         <div class="btn-info rondedBtn center">
             @Html.ActionLink("Create Totalizator", "CreateTotalizator", "User")
         </div>
         <div class="btn-info rondedBtn center">
             @Html.ActionLink("Show Rating", "CreateTotalizator", "User")
         </div>
+    </div>*@
+    <div class="collapse navbar-collapse" id="sidebar-nav" role="navigation">
+        <ul id="nav">
+            <li id="about">
+                <a href="/User/Index">
+                    <span class="icon icon-info"></span>About me
+                </a>
+            </li>
+            <li>
+                <a href="/User/CreateTotalizator">
+                    <span class="icon icon-chart-column"></span>Create Totalizator
+                </a>
+            </li>
+            <li>
+                <a href="/User/ShowTotalizators">
+                    <span class="icon icon-star-empty"></span>Show Totalizator &amp; Orders
+                </a>
+            </li>
+            <li>
+                <a href="/User/ShowRating">
+                    <span class="icon icon-faves"></span>Show Rating
+                </a>
+            </li>
+        </ul>
     </div>
 
-</div>
-<div class="mainContent">
-    @RenderBody()
-</div>
+    </div>
+    <div class="mainContent" ng-app="userModule">
+        <div ng-controller="UserNgController as vm">
+            @RenderBody()
+        </div>
+    </div>
+

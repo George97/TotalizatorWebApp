@@ -8,7 +8,11 @@ using TotalizatorWebApp.Database.Entity.MatchLayer;
 using TotalizatorWebApp.Database.Models.BusinessLayer;
 using TotalizatorWebApp.Database.Models.MatchLayer;
 using TotalizatorWebApp.Database.Models.UserLayer;
+using TotalizatorWebApp.Database.Entity;
 using TotalizatorWebApp.Helpers;
+using System.Web.Security;
+using TotalizatorWebApp.Database.Entity.BusinessLayer;
+using TotalizatorWebApp.Database.Entity.UserLayer;
 
 namespace TotalizatorWebApp.Controllers.User
 {
@@ -17,15 +21,70 @@ namespace TotalizatorWebApp.Controllers.User
         private UnitOfWork unitOfWork = new UnitOfWork();
 
         // GET: User
+        [Authorize]
         public ActionResult Index()
         {
             return View();
         }
+
+        public JsonResult SetCurrUser()
+        {
+            string login = String.Empty;
+            UserView user = null;
+
+            if (FormsAuthentication.CookiesSupported == true)
+            {
+                if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
+                {
+                    login = FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).Name;
+                }
+            }
+            if(!String.IsNullOrEmpty(login))
+            {
+                user =unitOfWork.UserRepository.GetByLogin(login).Parse();
+            }
+                return Json(user, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult CreateTotalizator()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public int AddTotalizator(int organaizerId,int stage,string tTitle, PointsAnalysisView tPoints, string tAccess)
+        {
+            var organaizer = unitOfWork.UserRepository.Get(organaizerId);
+            var index =unitOfWork.TotalizatorRepository.AddTotalizator(organaizerId, stage, tTitle, tPoints, tAccess);
+            unitOfWork.Save();
+            return index;
+        }
+        public ActionResult ShowTotalizators()
         {
             return View();
         }
-        public ActionResult ShowTotalizators()
+
+        public JsonResult GetAllTotalizators()
+        {
+            var t = unitOfWork.TotalizatorRepository.GetAll().ToList();
+            List<TotalizatorView> totalizators = null;
+            if (t.Count > 0)
+            {
+                totalizators = EntityListParser<Totalizator, TotalizatorView>.ListParser(t);
+
+            }
+            return Json(totalizators, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public JsonResult GetTotalizator(int tId)
+        {
+            var totalizator = unitOfWork.TotalizatorRepository.Get(tId).Parse();
+           
+            return Json(totalizator, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult ShowRating()
         {
             return View();
         }
@@ -33,39 +92,20 @@ namespace TotalizatorWebApp.Controllers.User
         [HttpGet]
         public JsonResult GetLeague(int LeagueId)
         {
-            var league = new LeagueView() { LeagueId = 1, Name = "League 1" };
-            //var league = (unitOfWork.MatchRepository.GetLeague(id)).Parse();
+            var league = (unitOfWork.MatchRepository.GetLeague(LeagueId)).Parse();
             return Json(league, JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetLeagues()
         {
-            List<LeagueView> leagues = new List<LeagueView>()
-            {
-                new LeagueView() {LeagueId =1, Name="League 1" },
-                new LeagueView() {LeagueId =2, Name="League 2" },
-            };
-           // var leagues = EntityListParser<League,LeagueView>.ListParser(unitOfWork.MatchRepository.GetLeagues());
+            var leagues = EntityListParser<League,LeagueView>.ListParser(unitOfWork.MatchRepository.GetLeagues());
             return Json(leagues, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetStages(int leagueId)
         {
-            List<StageView> stages = new List<StageView>()
-            {
-                new StageView() {StageId=1,LeagueName="League 1",Name="Round 1" },
-                new StageView() {StageId=2,LeagueName="League 1",Name="Round 2" }
-            };
-            List<StageView> stages2 = new List<StageView>()
-            {
-                new StageView() {StageId=1,LeagueName="League 2",Name="Round 12" },
-                new StageView() {StageId=2,LeagueName="League 2",Name="Round 23" }
-            };
+            var stages = EntityListParser<Stage,StageView>.ListParser(unitOfWork.MatchRepository.GetStages(leagueId));
+            return Json(stages, JsonRequestBehavior.AllowGet);
 
-            //var stages = EntityListParser<Stage,StageView>.ListParser(unitOfWork.MatchRepository.GetStages(leagueId));
-            if(leagueId ==1)
-                return Json(stages, JsonRequestBehavior.AllowGet);
-            else
-                return Json(stages2, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetMatches(int stageId)
@@ -82,15 +122,7 @@ namespace TotalizatorWebApp.Controllers.User
 
         public JsonResult GetAllUsers()
         {
-            List<UserView> users = new List<UserView>()
-            {
-                new UserView() { UserId=1,Login="login1",Password="pass1",FullName="Yura",Points=10 },
-                new UserView() { UserId=2,Login="login2",Password="pass1",FullName="Taras",Points=10 },
-                new UserView() { UserId=3,Login="login3",Password="pass1",FullName="Diana",Points=10 },
-                new UserView() { UserId=4,Login="login4",Password="pass1",FullName="Vasia",Points=10 },
-                new UserView() { UserId=5,Login="login5",Password="pass1",FullName="Vova",Points=10 }
-            };
-
+            var users = EntityListParser<Database.Entity.UserLayer.User, UserView>.ListParser(unitOfWork.UserRepository.GetUsers());
             return Json(users, JsonRequestBehavior.AllowGet);
         }
 
@@ -105,5 +137,35 @@ namespace TotalizatorWebApp.Controllers.User
             var nextIndex = unitOfWork.TotalizatorRepository.GetNextIndex();
             return Json(nextIndex, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetBlunkResults(int stageId)
+        {
+            var matchResults = unitOfWork.MatchRepository.GetBlunkResults(stageId);
+            return Json(matchResults, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult RedirectToForecast(string name)
+        {
+            return RedirectToAction("ForecastPage", name);
+        }
+
+        public ActionResult ForecastPage()
+        {
+            return View();
+        }
+        public int SetTManagerId(int tid, int userId)
+        {
+            var i =unitOfWork.TotalizatorRepository.SetManagerId(tid, userId);
+            return i;
+        }
+
+       [HttpPost]
+        public void SetForecast(MatchResultView matchResult,int tmanagerId)
+        {
+            int id =unitOfWork.MatchRepository.setForecasrResult(matchResult);
+            unitOfWork.TotalizatorRepository.SetForecast(id, tmanagerId);
+            unitOfWork.Save();
+        }
+
     }
 }

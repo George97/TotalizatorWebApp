@@ -1,8 +1,9 @@
-﻿<div class="main" ng-app="userModule">
+﻿@{
+    Layout = "~/Views/User/_UserLayout.cshtml";
+}
+<div class="main"ng-app="userModule">
     <div ng-controller="UserNgController as vm">
-        <ul>
-            <li ng-repeat="l in vm.leagues">{{l.Name}}</li>
-        </ul>
+       <h1>Hello , {{vm.currUser.FullName}}</h1>
     </div>
 </div>
 <script src="~/Scripts/angular/user/userModule.js"></script>

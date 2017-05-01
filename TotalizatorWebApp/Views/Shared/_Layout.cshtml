@@ -7,42 +7,62 @@
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/css/appStyle.css" rel="stylesheet" type="text/css" />
-    <script src="~/Scripts/modernizr-2.6.2.js"></script>
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/libs/angular.js"></script>
+    @*<link rel="stylesheet" href="http://kendo.cdn.telerik.com/2016.2.714/styles/kendo.common.min.css">*@
+    @*<link href="https://kendo.cdn.telerik.com/2017.1.223/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2016.2.714/styles/kendo.bootstrap.min.css">
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>*@
+    @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
+
+    @*<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>*@
+    @*<script src="~/Scripts/libs/angular.js"></script>
+    <script src="http://kendo.cdn.telerik.com/2016.2.714/js/kendo.all.min.js"></script>*@
+
+    <link rel="canonical" href="http://demos.telerik.com/kendo-ui/grid/angular" />
+    <link href="https://kendo.cdn.telerik.com/2017.1.223/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="https://kendo.cdn.telerik.com/2017.1.223/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="https://kendo.cdn.telerik.com/2017.1.223/styles/kendo.rtl.min.css" rel="stylesheet" />
+    <link href="https://kendo.cdn.telerik.com/2017.1.223/styles/kendo.material.min.css" rel="stylesheet" />
+
+
+
+        <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+        <script src="~/Scripts/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.js"></script>
+        <script src="https://kendo.cdn.telerik.com/2017.1.223/js/kendo.all.min.js"></script>
+        @*<script src="https://kendo.cdn.telerik.com/2017.1.223/js/kendo.timezones.min.js"></script>*@
 </head>
 <body>
-    <div class="content">
+    @*<div class="content">*@
         <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
+            @*<div class="container">*@
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    <span class="navbar-brand">Totalizator</span>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
+                        <li><a href="/Account/LogOut"> Log Out</a></li>
                     </ul>
                 </div>
-            </div>
+            @*</div>*@
         </div>
 
-        <div class="container body-content ">
+        @*<script src="~/Scripts/angular/app/appModule.js"></script>*@
+        <script src="~/Scripts/angular/user/userModule.js"></script>
+
+        @*<script src="~/Scripts/angular/app/appController.js"></script>
+        <script src="~/Scripts/angular/app/appService.js"></script>*@
+        <script src="~/Scripts/angular/user/userController.js"></script>
+        <script src="~/Scripts/angular/user/userService.js"></script>
+
+        @*<script src="~/Scripts/angular/user/userController.js"></script>
+        <script src="~/Scripts/angular/user/userService.js"></script>*@
+
+        <div>
             @RenderBody()
             <hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-            </footer>
         </div>
-    </div>
+    @*</div>*@
 
-    @*<script src="~/Scripts/app/appModule.js"></script>
-    <script src="~/Scripts/app/appController.js"></script>
-    <script src="~/Scripts/app/appService.js"></script>*@
 </body>
 
 </html>

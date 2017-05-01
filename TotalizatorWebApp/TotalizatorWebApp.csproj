@@ -136,9 +136,9 @@
     <Content Include="Scripts\angular\admin\adminController.js" />
     <Content Include="Scripts\angular\admin\adminModule.js" />
     <Content Include="Scripts\angular\admin\adminService.js" />
-    <Content Include="Scripts\angular\appController.js" />
-    <Content Include="Scripts\angular\appModule.js" />
-    <Content Include="Scripts\angular\appService.js" />
+    <Content Include="Scripts\angular\app\appController.js" />
+    <Content Include="Scripts\angular\app\appModule.js" />
+    <Content Include="Scripts\angular\app\appService.js" />
     <Content Include="Scripts\angular\user\userController.js" />
     <Content Include="Scripts\angular\user\userModule.js" />
     <Content Include="Scripts\angular\user\userService.js" />
@@ -154,15 +154,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Admin\AdminController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Home\HomeController.cs" />
     <Compile Include="Controllers\User\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\EntityListParser.cs" />
-    <Compile Include="Helpers\EntityParser.cs" />
     <Compile Include="Models\LeagueView.cs" />
+    <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\MatchView.cs" />
     <Compile Include="Models\StageView.cs" />
     <Compile Include="Models\TeamView.cs" />
@@ -184,10 +185,15 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\ShowMatchSchedules.cshtml" />
     <Content Include="Views\Admin\MatchSchedule.cshtml" />
-    <Content Include="Views\User\ShowTotalizators.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\CreateTotalizator.cshtml" />
     <Content Include="Views\User\_UserLayout.cshtml" />
+    <Content Include="Views\User\ShowRating.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Admin\AdminPage.cshtml" />
+    <Content Include="Views\User\ShowTotalizators.cshtml" />
+    <Content Include="Views\User\ForecastPage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,6 +1,5 @@
 ﻿
-INSERT INTO Leagues (Name) VALUES ('Premier League')
-INSERT INTO Leagues (Name) VALUES ('Champions League')
+INSERT INTO Leagues (Name) VALUES ('Premier League'),('Champions League')
 
 INSERT INTO Stages (Name,LeagueId)
 VALUES ('Round 34',1);
@@ -17,5 +16,8 @@ VALUES (12,19,'2017-04-22 17:00',1),(17,10,'2017-04-22 17:00',1),(18,11,'2017-04
 	   (15,5,'2017-04-23 16:15',1),(2,16,'2017-04-23 18:30',1),
 	   (1,9,'2017-04-25 21:45',1),(7,20,'2017-05-16 21:45',1),(4,8,'2017-05-16 22:00',1),(14,2,'2017-05-18 21:45',1);
 
+INSERT INTO Users (FullName,Login,Password,Points,Roles)
+VALUES ('Yura Maluga','admin','777',0,'Admin')
 INSERT INTO Users (FullName,Login,Password,Points)
-VALUES ('Matsko Vova' , 'Nilan','1111',70),('Fai Vasia','lasaV','1111',71),('Peleh Bohdan','Batia','1111',73),('Olia Solar','o_Soliar','1111',75)
+VALUES ('Matsko Vova' , 'Nilan','1111',70),('Fai Vasia','lasaV','1111',71),('Peleh Bohdan','Batia','1111',73),
+       ('Olia Solar','o_Soliar','1111',75),('Diana Kruskuw','DianaDiana','1111',85)

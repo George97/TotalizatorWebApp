@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
 namespace TotalizatorWebApp.Database.Entity.MatchLayer
 {
-    public class Result
+    public class ForecastResult
     {
+        public int ForecastResultId { get; set; }
+
         public int MatchId { get; set; }
 
         public int HomeTeamGoals { get; set; }

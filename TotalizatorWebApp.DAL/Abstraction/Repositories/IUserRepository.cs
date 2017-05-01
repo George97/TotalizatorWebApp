@@ -7,8 +7,12 @@ using TotalizatorWebApp.Database.Entity.UserLayer;
 
 namespace TotalizatorWebApp.DAL.Abstraction.Repositories
 {
-    interface IUserRepository
+    public interface IUserRepository
     {
         List<User> GetUsers();
+        bool UserExist(string login, string pass);
+        string GetUserRole(string login);
+        User GetByLogin(string login);
+        User Get(int id);
     }
 }

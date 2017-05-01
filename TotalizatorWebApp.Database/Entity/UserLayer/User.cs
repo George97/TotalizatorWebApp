@@ -23,6 +23,8 @@ namespace TotalizatorWebApp.Database.Entity.UserLayer
 
         public string Password { get; set; }
 
+        public string Roles { get; set; }
+
         public string FullName { get; set; }
 
         public double Points { get; set; }
@@ -41,6 +43,7 @@ namespace TotalizatorWebApp.Database.Entity.UserLayer
                 Login = this.Login,
                 Password = this.Password,
                 FullName = this.FullName,
+                Roles = this.Roles,
                 Points = this.Points
             };
         }

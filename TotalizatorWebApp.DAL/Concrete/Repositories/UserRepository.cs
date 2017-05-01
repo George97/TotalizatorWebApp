@@ -21,5 +21,34 @@ namespace TotalizatorWebApp.DAL.Concrete.Repositories
         {
             return context.Users.ToList();
         }
+        public bool UserExist(string login, string pass)
+        {
+            var user = context.Users.SingleOrDefault(u => u.Login == login && u.Password == pass);
+            if(user!=null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public string GetUserRole(string login)
+        {
+            var user = context.Users.SingleOrDefault(u => u.Login == login);
+            if (user != null)
+            {
+                return user.Roles;
+            }
+            return null;
+        }
+
+        public User GetByLogin(string login)
+        {
+            return context.Users.SingleOrDefault(u => u.Login == login);
+        }
+
+        public User Get(int id)
+        {
+            return context.Users.SingleOrDefault(u => u.UserId == id);
+        }
     }
 }

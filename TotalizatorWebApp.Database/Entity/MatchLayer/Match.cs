@@ -10,6 +10,11 @@ namespace TotalizatorWebApp.Database.Entity.MatchLayer
 {
     public class Match: IEntity<MatchView>
     {
+        public Match()
+        {
+            ForecastResults = new HashSet<ForecastResult>();
+        }
+
         public int MatchId { get; set; }
 
         public DateTime Date { get; set; }
@@ -30,6 +35,8 @@ namespace TotalizatorWebApp.Database.Entity.MatchLayer
         public virtual Stage Stage { get; set; }
 
         public virtual Result Result { get; set; }
+
+        public virtual ICollection<ForecastResult> ForecastResults{ get; set; }
 
         public MatchView Parse()
         {

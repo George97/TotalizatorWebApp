@@ -12,5 +12,11 @@ namespace TotalizatorWebApp.Controllers.Admin
         {
             return View();
         }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult AdminPage()
+        {
+            return View();
+        }
     }
 }

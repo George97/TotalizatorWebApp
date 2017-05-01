@@ -3,37 +3,50 @@
     font-size:14pt;
     font-family:'Times New Roman', Times, serif;
 }
-span,input,label,p{
-    margin:10px;
-}
-input{
-    width:80px;
-}
+
 .body-content{
     overflow:hidden;
     padding:10px;
 }
+.navbar-header{
+    font-size: 18px;
+    width: 269px;
+    background-color: #1996e4;
+    text-align: center;
+}
+.navbar-inverse .navbar-brand {
+    color:white;
+}
+ #dash-logo{
+    font-size: 18px;
+    text-transform: uppercase;
+    line-height: 26px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    color: #fff;
+    background-color: #1996e4;
+    text-align: center;
+}
 .sideBar{
-    width:30%;
+    width:20%;
     float:left;
-    height:400px;
+    /*height:400px;
     border-style:solid;
     border-color:gray;
     border-width:2px;
     border-radius:5%;
-    background-color:lightgrey;
+    background-color:lightgrey;*/
 }
 .mainContent{
-    width:60%;
+    background-color: #e3e3e3;
+    width:80%;
     float:right;
     height:auto;
-    margin-left:5%;
-    margin-right:5%;
-    border-style:solid;
+    /*border-style:solid;
     border-color:gray;
     border-width:2px;
-    border-radius:5%;
-    padding:10px;
+    border-radius:5%;*/
+    padding:40px;
     
 }
 
@@ -41,10 +54,10 @@ input{
     font-size:18pt;
 }
 .table{
-    border-style:solid;
+    /*border-style:solid;
     border-color:gray;
     border-width:2px;
-    border-radius:5%;
+    border-radius:5%;*/
     margin-bottom:40px;
 }
 .submitBtn{
@@ -67,3 +80,63 @@ input{
     margin-left:auto;
     margin-right:auto;
 }
+
+/* Bootstrap overrides*/
+.row,
+.container-fluid {
+   padding: 0;
+   margin: 0;
+}
+
+.column{
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Nav section */
+#nav{
+  padding:0px;
+  background-color: #35373d;
+  width: 100%;
+  float: left;
+  height: 861px;
+}
+
+#nav li {
+    border-bottom: 1px solid #4a4b51;
+    white-space:nowrap;
+    font-size: 11px;
+    line-height: 99px;
+}
+
+#nav li a {
+    color: #b8bbc2;
+    text-transform: uppercase;
+    text-decoration: none;
+    margin-left: 1em;
+    font-size: 12px;
+    padding: 3em 1.2em;
+}
+
+#nav li:hover {
+    background-color: #212329;
+}
+
+#nav li.active {
+    background-color: #0d1016;
+}
+
+.nav > li > a:hover,
+.nav > li > a:focus {
+    background: none;
+}
+#sidebar-nav{
+  padding: 0;
+}
+.matchTable{
+    
+}
+
+
+
+

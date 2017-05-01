@@ -14,8 +14,9 @@ namespace TotalizatorWebApp.DAL.Concrete.UnitOfWork
         private TotalizatorContext context;
         private IMatchRepository matchRepository;
         private ITotalizatorRepository totalizatorRepository;
+        private IUserRepository userRepository;
 
-        public UnitOfWork()
+       public UnitOfWork()
         {
             context = new TotalizatorContext();
             
@@ -36,6 +37,15 @@ namespace TotalizatorWebApp.DAL.Concrete.UnitOfWork
                 return totalizatorRepository ?? (totalizatorRepository = new TotalizatorRepository(context));
             }
         }
+
+        public IUserRepository UserRepository
+        {
+            get
+            {
+                return userRepository ?? (userRepository = new UserRepository(context));
+            }
+        }
+
 
         public void Save()
         {

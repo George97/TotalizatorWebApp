@@ -14,6 +14,8 @@ namespace TotalizatorWebApp.Database.Models.UserLayer
 
         public string Password { get; set; }
 
+        public string Roles { get; set; }
+
         public string FullName { get; set; }
 
         public double Points { get; set; }

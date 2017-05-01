@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using TotalizatorWebApp.Database.Entity.Abstract;
 using TotalizatorWebApp.Database.Entity.MatchLayer;
 using TotalizatorWebApp.Database.Entity.UserLayer;
+using TotalizatorWebApp.Database.Models.BusinessLayer;
 
 namespace TotalizatorWebApp.Database.Entity.BusinessLayer
 {
-    public class Totalizator
+    public class Totalizator:IEntity<TotalizatorView>
     {
         public Totalizator()
         {
@@ -30,6 +32,8 @@ namespace TotalizatorWebApp.Database.Entity.BusinessLayer
 
         public User Organaizer { get; set; }
 
+        public bool isPublic { get; set; }
+
         public DateTime Validity { get; set; }
 
         public  virtual PointsAnalysis PointsAnalysis { get; set; }
@@ -38,7 +42,19 @@ namespace TotalizatorWebApp.Database.Entity.BusinessLayer
 
         public virtual ICollection<Confirmation> Confirmations { get; set; }
 
+        public TotalizatorView Parse()
+        {
+            return new TotalizatorView()
+            {
+                TotalizatorId = this.TotalizatorId,
+                Name = this.Name,
+                OrganaizerName = String.Empty,
+                OrganaizerId = this.OrganaizerId,
+                StageId = this.StageId,
+                isPublic = this.isPublic,
+                Validity = this.Validity
+            };
 
-
+        }
     }
 }

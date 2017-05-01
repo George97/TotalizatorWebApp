@@ -1,19 +1,50 @@
-﻿
-<table class="table table-striped">
-    <tbody>
-        <tr ng-repeat="t in vm.totalizators">
-            <td>{{t.HomeTeamName}}</td>
-            <td>
-                <span>
-                    <input type="text" value="{{t.HomeTeamGoals}}" style="width:30px;" />
-                    <span> : </span>
-                    <input type="text" value="{{t.GuestTeamPoints}}" style="width:30px;"/>
-                </span>
-            </td>
-            <td>{{t.GuestTeamName}}</td>
-            <td>{{t.MatchDate | jsDate | date:"yy-MM-dd   HH:mm"}}</td>
-        </tr>
+﻿@{
+    Layout = "~/Views/User/_UserLayout.cshtml";
+}
+<div>
+    @*<kendo-grid options="mainGridOptions"></kendo-grid>*@
+    <div class="totalTable" ng-show="!vm.showMatches">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Access</th>
+                    <th>ValidDate</th>
+                </tr>
+            </thead>
+                <tbody>
+                    <tr ng-repeat="t in vm.totalizators" ng-click="vm.onTotalizator(t.StageId,t.TotalizatorId)">
+                            <td>{{t.Name}}</td>
+                            <td>{{t.isPublic}}</td>
+                            <td>{{t.Validity | jsDate | date:"yy-MM-dd   HH:mm"}}</td>
+                    </tr>
+                </tbody>
+        </table>
+    </div>
 
-    </tbody>
-</table>
-
+    <div class="matchTable" ng-show="vm.showMatches">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Home Team</th>
+                    <th>Goals</th>
+                    <th>Guest Team</th>
+                    <th>Goals</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="mr in vm.matchResults">
+                    <td>{{mr.HomeTeamName}}</td>
+                    <td>
+                        <input type="text" ng-model="mr.HomeTeamGoals" style="width:40px;"/>
+                    </td>
+                    <td>{{mr.GuestTeamName}}</td>
+                    <td>
+                        <input type="text" ng-model="mr.GuestTeamPoints" style="width:40px;" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="btn-info rondedBtn  submitBtn center" ng-click="vm.onForecast()">Done</button>
+    </div>
+</div>

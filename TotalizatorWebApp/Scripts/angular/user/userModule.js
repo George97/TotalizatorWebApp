@@ -1,3 +1,4 @@
 ﻿(function (angular) {
-    angular.module("userModule", []);
+    console.log("userModule");
+    angular.module("userModule", [])
 })(angular)
