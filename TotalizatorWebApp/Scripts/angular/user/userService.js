@@ -13,13 +13,17 @@
             getMatches: getMatches,
             getBlankPA: getBlankPA,
             getAllUsers: getAllUsers,
-            getAllTotalizators: getAllTotalizators,
+            getValidTotalizators: getValidTotalizators,
+            getAllTotalizators:getAllTotalizators,
             getTotalizator:getTotalizator,
             createTotalizator: createTotalizator,
             addUser: addUser,
             getBlunkResults: getBlunkResults,
             setTManagerId:setTManagerId,
-            setForecast: setForecast
+            setForecast: setForecast,
+            senRequest: senRequest,
+            getUserNotifications: getUserNotifications,
+            
             //getNextTotalizatorId: getNextTotalizatorId
         }
         return services;
@@ -77,8 +81,13 @@
             return promise;
         }
 
+        function getValidTotalizators(userId) {
+            var promise = $http.get('/User/GetAllValidTotalizators', { params: { "userId": userId } });
+            return promise;
+        }
+
         function getAllTotalizators() {
-            var promise = $http.post('/User/GetAllTotalizators');
+            var promise = $http.get('/User/GetAllTotalizatorsWithUsers');
             return promise;
         }
 
@@ -105,9 +114,16 @@
                 $http.post('/User/SetForecast', { "matchResult": matchResult, "tmanagerId": tmanagerId });
             })
         }
-        //function getNextTotalizatorId() {
-        //    var promise = $http.get('/User/GetNextTotalizatorId');
-        //    return promise;
-        //}
+       
+        function senRequest(userId, totalId, orgId) {
+            var promise = $http.post('/User/SenRequest', { "userId": userId, "totalId": totalId, "orgId": orgId });
+            return promise;
+        }
+
+        function getUserNotifications(userId) {
+            console.log(userId);
+            var promise = $http.get('/User/GetUserNotifications', { params: { "userId": userId } });
+            return promise;
+        }
     }
 })(angular);

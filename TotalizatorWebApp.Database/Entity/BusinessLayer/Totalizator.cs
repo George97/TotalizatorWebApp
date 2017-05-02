@@ -15,7 +15,7 @@ namespace TotalizatorWebApp.Database.Entity.BusinessLayer
         public Totalizator()
         {
             TotalizatorManagers = new HashSet<TotalizatorManager>();
-            Confirmations = new HashSet<Confirmation>();
+            Confirmations = new HashSet<Notification>();
         }
 
         public int TotalizatorId { get; set; }
@@ -40,7 +40,7 @@ namespace TotalizatorWebApp.Database.Entity.BusinessLayer
 
         public virtual ICollection<TotalizatorManager> TotalizatorManagers { get; set; }
 
-        public virtual ICollection<Confirmation> Confirmations { get; set; }
+        public virtual ICollection<Notification> Confirmations { get; set; }
 
         public TotalizatorView Parse()
         {

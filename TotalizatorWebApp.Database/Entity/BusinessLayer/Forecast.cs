@@ -16,7 +16,7 @@ namespace TotalizatorWebApp.Database.Entity.BusinessLayer
         [ForeignKey("TotalizatorManager")]
         public int TotalizatorManagerId { get; set; }
 
-        public ForecastResult Result { get; set; }
+        public ForecastResult ForecastResult { get; set; }
 
         public TotalizatorManager TotalizatorManager { get; set; }
     }

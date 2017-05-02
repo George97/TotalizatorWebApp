@@ -12,18 +12,20 @@ using TotalizatorWebApp.Database.Entity;
 using TotalizatorWebApp.Helpers;
 using System.Web.Security;
 using TotalizatorWebApp.Database.Entity.BusinessLayer;
-using TotalizatorWebApp.Database.Entity.UserLayer;
 
 namespace TotalizatorWebApp.Controllers.User
 {
     public class UserController : Controller
     {
+        private static readonly object locker = new object();
+
         private UnitOfWork unitOfWork = new UnitOfWork();
 
         // GET: User
         [Authorize]
         public ActionResult Index()
         {
+            //var user = unitOfWork.UserRepository.Get(1);
             return View();
         }
 
@@ -65,9 +67,14 @@ namespace TotalizatorWebApp.Controllers.User
             return View();
         }
 
-        public JsonResult GetAllTotalizators()
+        public ActionResult MakeForecast()
         {
-            var t = unitOfWork.TotalizatorRepository.GetAll().ToList();
+            return View();
+        }
+
+        public JsonResult GetAllValidTotalizators(int userId)
+        {
+            var t = unitOfWork.TotalizatorRepository.GetValidForUser(userId).ToList();
             List<TotalizatorView> totalizators = null;
             if (t.Count > 0)
             {
@@ -77,6 +84,13 @@ namespace TotalizatorWebApp.Controllers.User
             return Json(totalizators, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetAllTotalizatorsWithUsers()
+        {
+            var total = unitOfWork.TotalizatorRepository.GetAllWithUsers();
+
+            return Json(total, JsonRequestBehavior.AllowGet);
+        }
+
 
         public JsonResult GetTotalizator(int tId)
         {
@@ -84,6 +98,7 @@ namespace TotalizatorWebApp.Controllers.User
            
             return Json(totalizator, JsonRequestBehavior.AllowGet);
         }
+        
         public ActionResult ShowRating()
         {
             return View();
@@ -95,6 +110,7 @@ namespace TotalizatorWebApp.Controllers.User
             var league = (unitOfWork.MatchRepository.GetLeague(LeagueId)).Parse();
             return Json(league, JsonRequestBehavior.AllowGet);
         }
+
         public JsonResult GetLeagues()
         {
             var leagues = EntityListParser<League,LeagueView>.ListParser(unitOfWork.MatchRepository.GetLeagues());
@@ -103,7 +119,7 @@ namespace TotalizatorWebApp.Controllers.User
 
         public JsonResult GetStages(int leagueId)
         {
-            var stages = EntityListParser<Stage,StageView>.ListParser(unitOfWork.MatchRepository.GetStages(leagueId));
+            var stages = EntityListParser<Stage,StageView>.ListParser(unitOfWork.MatchRepository.GetValidStages(leagueId));
             return Json(stages, JsonRequestBehavior.AllowGet);
 
         }
@@ -144,27 +160,35 @@ namespace TotalizatorWebApp.Controllers.User
             return Json(matchResults, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult RedirectToForecast(string name)
-        {
-            return RedirectToAction("ForecastPage", name);
-        }
-
-        public ActionResult ForecastPage()
-        {
-            return View();
-        }
         public int SetTManagerId(int tid, int userId)
         {
             var i =unitOfWork.TotalizatorRepository.SetManagerId(tid, userId);
+            unitOfWork.Save();
             return i;
         }
 
        [HttpPost]
         public void SetForecast(MatchResultView matchResult,int tmanagerId)
         {
-            int id =unitOfWork.MatchRepository.setForecasrResult(matchResult);
-            unitOfWork.TotalizatorRepository.SetForecast(id, tmanagerId);
+            lock(locker)
+            {
+                int id =unitOfWork.MatchRepository.setForecasrResult(matchResult);
+                unitOfWork.TotalizatorRepository.SetForecast(id, tmanagerId);
+                unitOfWork.Save();
+            }
+        }
+
+        [HttpPost]
+        public void SenRequest(int userId, int totalId,int orgId)
+        {
+            unitOfWork.UserRepository.SenRequest(userId, totalId, orgId);
             unitOfWork.Save();
+        }
+
+        public JsonResult GetUserNotifications(int userId)
+        {
+            var notifications =EntityListParser<Notification,NotificationView>.ListParser(unitOfWork.UserRepository.GetNotifications(userId));
+            return Json(notifications, JsonRequestBehavior.AllowGet);
         }
 
     }

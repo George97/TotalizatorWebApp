@@ -2,49 +2,16 @@
     Layout = "~/Views/User/_UserLayout.cshtml";
 }
 <div>
-    @*<kendo-grid options="mainGridOptions"></kendo-grid>*@
-    <div class="totalTable" ng-show="!vm.showMatches">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Access</th>
-                    <th>ValidDate</th>
-                </tr>
-            </thead>
-                <tbody>
-                    <tr ng-repeat="t in vm.totalizators" ng-click="vm.onTotalizator(t.StageId,t.TotalizatorId)">
-                            <td>{{t.Name}}</td>
-                            <td>{{t.isPublic}}</td>
-                            <td>{{t.Validity | jsDate | date:"yy-MM-dd   HH:mm"}}</td>
-                    </tr>
-                </tbody>
-        </table>
-    </div>
-
-    <div class="matchTable" ng-show="vm.showMatches">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Home Team</th>
-                    <th>Goals</th>
-                    <th>Guest Team</th>
-                    <th>Goals</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="mr in vm.matchResults">
-                    <td>{{mr.HomeTeamName}}</td>
-                    <td>
-                        <input type="text" ng-model="mr.HomeTeamGoals" style="width:40px;"/>
-                    </td>
-                    <td>{{mr.GuestTeamName}}</td>
-                    <td>
-                        <input type="text" ng-model="mr.GuestTeamPoints" style="width:40px;" />
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <button class="btn-info rondedBtn  submitBtn center" ng-click="vm.onForecast()">Done</button>
+    <div ng-repeat="t in vm.allTotal">
+        <div class="info">
+            <p id="title">{{t.Name}}</p>
+            <p id="title">Totalizator Info: </p>
+            <p id="title">League: {{t.League}}</p>
+            <p id="title">Stage: {{t.Stage}}</p>
+            <p>Organaizer: {{t.OrganaizerLogin}}</p>
+            <p>Date: {{t.Validity| jsDate | date:"yy-MM-dd   HH:mm"}}</p>
+            <p>Access: {{t.Access}}</p>
+        </div>
+        <kendo-grid k-data-source="vm.setUsers(t.Users)" k-sortable="true" k-options="vm.gridTotalOptions"></kendo-grid>
     </div>
 </div>

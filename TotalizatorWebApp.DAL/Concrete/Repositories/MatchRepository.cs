@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TotalizatorWebApp.DAL.Abstraction;
 using TotalizatorWebApp.DAL.Abstraction.Repositories;
+using TotalizatorWebApp.DAL.Services;
 using TotalizatorWebApp.Database.Context;
 using TotalizatorWebApp.Database.Entity.MatchLayer;
 using TotalizatorWebApp.Database.Models.MatchLayer;
@@ -35,9 +36,18 @@ namespace TotalizatorWebApp.DAL.Concrete.Repositories
             return context.Matches.ToList();
         }
 
-        public List<Stage> GetStages(int leagueId)
+        public List<Stage> GetValidStages(int leagueId)
         {
-            return context.Stages.Where(s => s.LeagueId == leagueId).ToList();
+            List<Stage> result = new List<Stage>();
+            var stages =context.Stages.Where(s => s.LeagueId == leagueId).ToList();
+            foreach (var item in stages)
+            {
+                if(DateService.getValidDate(item.StageId, context)>= DateTime.Now)
+                {
+                    result.Add(item);
+                }
+            }
+            return result;
         }
 
         public List<MatchResultView> GetBlunkResults(int stageId)
@@ -63,10 +73,13 @@ namespace TotalizatorWebApp.DAL.Concrete.Repositories
             int i = context.ForecastResults.ToList().Count;
             context.ForecastResults.Add(new ForecastResult()
             {
+                ForecastResultId = i+1,
                 MatchId = res.MatchId,
+                Match = context.Matches.SingleOrDefault(m => m.MatchId== res.MatchId),
                 HomeTeamGoals = res.HomeTeamGoals,
                 GuestTeamGoals = res.GuestTeamPoints
             });
+            context.SaveChanges();
             return i + 1;
         }
     }

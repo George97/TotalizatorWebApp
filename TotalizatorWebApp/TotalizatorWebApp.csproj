@@ -194,6 +194,7 @@
     <Content Include="Views\Admin\AdminPage.cshtml" />
     <Content Include="Views\User\ShowTotalizators.cshtml" />
     <Content Include="Views\User\ForecastPage.cshtml" />
+    <Content Include="Views\User\MakeForecast.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

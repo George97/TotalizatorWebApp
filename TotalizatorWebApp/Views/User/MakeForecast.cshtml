@@ -1,0 +1,56 @@
+﻿
+@{
+    Layout = "~/Views/User/_UserLayout.cshtml";
+}
+<div>
+    @*<kendo-grid options="mainGridOptions"></kendo-grid>*@
+    <div class="message" ng-show="vm.msgShow">
+        <p>This totalizator is private. Send request to organaizer for access confirmation ? </p>
+        <button class="btn-success" ng-click="vm.onSend()">Yes</button>
+        <button class="btn-info" ng-click="vm.msgShow= !vm.msgShow">Cancel</button>
+    </div>
+    <div class="totalTable" ng-show="!vm.showMatches">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Access</th>
+                    <th>ValidDate</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="t in vm.validTotal" ng-click="vm.onTotalizator(t)">
+                    <td>{{t.Name}}</td>
+                    <td>{{t.isPublic}}</td>
+                    <td>{{t.Validity | jsDate | date:"yy-MM-dd   HH:mm"}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="matchTable" ng-show="vm.showMatches">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Home Team</th>
+                    <th>Goals</th>
+                    <th>Guest Team</th>
+                    <th>Goals</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="mr in vm.matchResults">
+                    <td>{{mr.HomeTeamName}}</td>
+                    <td>
+                        <input type="text" ng-model="mr.HomeTeamGoals" style="width:40px;" />
+                    </td>
+                    <td>{{mr.GuestTeamName}}</td>
+                    <td>
+                        <input type="text" ng-model="mr.GuestTeamPoints" style="width:40px;" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="btn-info rondedBtn  submitBtn center" ng-click="vm.onForecast()">Done</button>
+    </div>
+</div>

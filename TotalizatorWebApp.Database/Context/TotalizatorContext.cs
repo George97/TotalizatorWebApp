@@ -12,7 +12,7 @@ namespace TotalizatorWebApp.Database.Context
 {
     public class TotalizatorContext : DbContext
     {
-        public TotalizatorContext() : base("TotalizatorAppDB")
+        public TotalizatorContext() : base("TotalizatorDB")
         {
             System.Data.Entity.Database.SetInitializer<TotalizatorContext>(new DropCreateDatabaseIfModelChanges<TotalizatorContext>());
         }
@@ -31,15 +31,13 @@ namespace TotalizatorWebApp.Database.Context
 
         public DbSet<User> Users { get; set; }
 
-        public DbSet<Admin> Admins { get; set; }
-
         public DbSet<Totalizator> Totalizators { get; set; }
 
         public DbSet<TotalizatorManager> TotalizatorManagers { get; set; }
 
         public DbSet<Forecast> Forecasts { get; set; }
 
-        public DbSet<Confirmation> Confirmations { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
 
         public DbSet<PointsAnalysis> PointsAnalysis { get; set; }
 
@@ -85,10 +83,6 @@ namespace TotalizatorWebApp.Database.Context
                         .WithMany(u => u.Totalizators)
                         .WillCascadeOnDelete(false);
 
-            //modelBuilder.Entity<Totalizator>()
-            //            .HasRequired<PointsAnalysis>(t => t.PointsAnalysis)
-            //            .WithRequiredPrincipal(pa => pa.Totalizator);
-
             modelBuilder.Entity<TotalizatorManager>()
                         .HasRequired<User>(tm => tm.User)
                         .WithMany(u => u.TotalizatorManagers);
@@ -101,11 +95,19 @@ namespace TotalizatorWebApp.Database.Context
                         .HasRequired<TotalizatorManager>(f => f.TotalizatorManager)
                         .WithMany(tm => tm.Forecasts);
 
-            modelBuilder.Entity<ForecastResult>()
-                        .HasRequired<Match>(fr => fr.Match)
-                        .WithMany(m => m.ForecastResults)
+            modelBuilder.Entity<Match>()
+                        .HasMany<ForecastResult>(m => m.ForecastResults)
+                        .WithRequired(fr => fr.Match)
                         .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<Notification>()
+                        .HasRequired<User>(n => n.User)
+                        .WithMany(u => u.Requests);
+
+            modelBuilder.Entity<User>()
+                        .HasMany<Notification>(u => u.Notifications)
+                        .WithRequired(n => n.Receiver)
+                        .WillCascadeOnDelete(false);
 
         }
     }

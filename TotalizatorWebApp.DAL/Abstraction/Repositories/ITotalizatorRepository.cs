@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using TotalizatorWebApp.Database.Entity.BusinessLayer;
 using TotalizatorWebApp.Database.Models.BusinessLayer;
+using TotalizatorWebApp.Database.Models.UserLayer;
 
 namespace TotalizatorWebApp.DAL.Abstraction.Repositories
 {
     public interface ITotalizatorRepository
     {
-        List<Totalizator> GetTotalizators();
 
         int GetNextIndex();
 
@@ -18,12 +18,18 @@ namespace TotalizatorWebApp.DAL.Abstraction.Repositories
 
         void AddUser(int toalizatorId, int userId);
 
-        List<Totalizator> GetAll();
-
         Totalizator Get(int id);
+
+        List<TotalizatorWithUsersView> GetAllWithUsers();
+
+        List<UserView> GetTotalizatorUsers(int totalId);
+
+        List<Totalizator> GetValidForUser(int userId);
 
         int SetManagerId(int totalizatorId, int userId);
 
         void SetForecast(int forecastResId, int totalManagerId);
+
+
     }
 }

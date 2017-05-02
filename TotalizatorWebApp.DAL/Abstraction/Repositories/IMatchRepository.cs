@@ -14,7 +14,7 @@ namespace TotalizatorWebApp.DAL.Abstraction.Repositories
 
         List<League> GetLeagues();
 
-        List<Stage> GetStages(int leagueId);
+        List<Stage> GetValidStages(int leagueId);
 
         List<Match> GetMatches(int stageId);
 

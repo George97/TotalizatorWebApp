@@ -1,11 +1,13 @@
 ﻿@{
     Layout = "~/Views/User/_UserLayout.cshtml";
 }
-<div class="main"ng-app="userModule">
-    <div ng-controller="UserNgController as vm">
+<div class="main">
+    <div>
        <h1>Hello , {{vm.currUser.FullName}}</h1>
+       <h1>Notifications:</h1>
+        <p ng-repeat="n in vm.userNotifications">
+            From: {{n.UserLogin}} . Totalizator : {{n.TotalizatorName}}
+        </p>
+
     </div>
 </div>
-<script src="~/Scripts/angular/user/userModule.js"></script>
-<script src="~/Scripts/angular/user/userController.js"></script>
-<script src="~/Scripts/angular/user/userService.js"></script>

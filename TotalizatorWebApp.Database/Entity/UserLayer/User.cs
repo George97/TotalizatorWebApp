@@ -14,7 +14,8 @@ namespace TotalizatorWebApp.Database.Entity.UserLayer
         public User()
         {
             TotalizatorManagers = new HashSet<TotalizatorManager>();
-            Confirmations = new HashSet<Confirmation>();
+            Notifications = new HashSet<Notification>();
+            Requests = new HashSet<Notification>();
         }
 
         public int UserId { get; set; }
@@ -31,7 +32,9 @@ namespace TotalizatorWebApp.Database.Entity.UserLayer
 
         public virtual ICollection<TotalizatorManager> TotalizatorManagers { get; set; }
 
-        public virtual ICollection<Confirmation> Confirmations { get; set; }
+        public virtual ICollection<Notification> Notifications { get; set; }
+
+        public virtual ICollection<Notification> Requests { get; set; }
 
         public virtual ICollection<Totalizator> Totalizators { get; set; }
 

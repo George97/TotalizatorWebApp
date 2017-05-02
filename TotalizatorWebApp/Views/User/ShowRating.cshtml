@@ -1,4 +1,6 @@
 ﻿@{
     Layout = "~/Views/User/_UserLayout.cshtml";
 }
-<h1>Rating</h1>
+<div>
+    <kendo-grid k-data-source="vm.getUsers()" k-sortable="true" k-options="vm.gridUserOptions"></kendo-grid>
+</div>
