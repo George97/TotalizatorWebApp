@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TotalizatorWebApp.Database.Entity.MatchLayer;
+using TotalizatorWebApp.Database.Models.API;
 using TotalizatorWebApp.Database.Models.MatchLayer;
 
 namespace TotalizatorWebApp.DAL.Abstraction.Repositories
@@ -14,12 +15,14 @@ namespace TotalizatorWebApp.DAL.Abstraction.Repositories
 
         List<League> GetLeagues();
 
-        List<Stage> GetValidStages(int leagueId);
+        List<Stage> GetValidStages(int leagueId, DateTime date);
 
         List<Match> GetMatches(int stageId);
 
         List<MatchResultView> GetBlunkResults(int stageId);
 
-        int setForecasrResult(MatchResultView res);
+        int SetMatchResult(List<FixtureView> results);
+
+        void setPoints(int stageId, List<FixtureView> matchRes);
     }
 }

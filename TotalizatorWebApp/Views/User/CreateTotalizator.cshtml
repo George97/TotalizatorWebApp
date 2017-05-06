@@ -2,63 +2,63 @@
     Layout = "~/Views/User/_UserLayout.cshtml";
 }
 
-        <div class="mainForm">
-            <div class="title">
-                <p id="title">TotalizatorName:</p>
-                <input ng-model="vm.tTitle" style="width: 100px;" />
-            </div>
-            <p id="title">Please select league</p>
-            @*<select name="selectLeague" id="selectLeague" ng-model="vm.currLeagueId" ng-change="vm.onLeagueChange() kendo-combo-box">
-                <option ng-repeat="l in vm.leagues" value="{{l.LeagueId}}">{{l.Name}}</option>
-            </select>*@
-            <select kendo-combo-box
-                    ng-model="vm.currLeagueId"
-                    ng-change="vm.onLeagueChange()"
-                    k-placeholder="'Select league'"
-                    k-data-text-field="'Name'"
-                    k-data-value-field="'LeagueId'"
-                    k-filter="'contains'"
-                    k-auto-bind="true"
-                    k-min-length="3"
-                    k-data-source="leaguesDataSource"
-                    style="width: 100%">
-            </select>
+    <div class="myContainer">
+            <span id="title">TotalizatorName:</span>
+            <input class="textInput" ng-model="vm.tTitle" />
 
-            <div class="stagesList">
-                    <li ng-repeat="s in vm.currStages">
-                        <input  type="radio" name="selectedStage" value="{{s.StageId}}" ng-model="vm.tStageId"/>{{s.Name}}<br />
-                    </li>
-            </div>
-            <div class="acces">
-                <p id="title">Access</p>
+        <p id="title">Please select league</p>
+        <select kendo-combo-box
+                ng-model="vm.currLeagueId"
+                ng-change="vm.onLeagueChange()"
+                k-placeholder="'Select league'"
+                k-data-text-field="'Name'"
+                k-data-value-field="'LeagueId'"
+                k-filter="'contains'"
+                k-auto-bind="true"
+                k-min-length="3"
+                k-data-source="leaguesDataSource"
+                style="width: 100%">
+        </select>
+
+        <div class="stagesList doubleSpace">
+                <li ng-repeat="s in vm.currStages">
+                    <input  type="radio" name="selectedStage" value="{{s.StageId}}" ng-model="vm.tStageId"/>{{s.Name }}: {{s.MatchDay}}<br />
+                </li>
+        </div>
+        <div class="acces">
+            <p id="title">Access</p>
+            <div class="inputBox doubleSpace">
                 <input type="radio" ng-model="vm.isTPublic" value="Private"/>Private<br />
                 <input type="radio" ng-model="vm.isTPublic" value="Public"/>Public<br />
             </div>
-            <div class="pointsBox">
-                <p id="title">Please set your rules</p>
-
-                <div class="box-col">
-                    <span id="title">Full: </span><input kendo-numeric-text-box k-min="0" k-max="100" k-ng-model="vm.tPoints.Full"  style="width: 100px;" />
-                </div>
-                <div class="box-col">
-                    <span id="title">Goal diff: </span><input kendo-numeric-text-box k-min="0" k-max="100" k-ng-model="vm.tPoints.GoalDif"   style="width: 100px;" />
-                </div>
-                <div class="box-col">
-                    <span id="title"> Just winner: </span><input kendo-numeric-text-box k-min="0" k-max="100" k-ng-model="vm.tPoints.JustWinner" style="width: 100px;" />
-                </div>
-
-                @*<label for="fullPoints" id="title">Full</label>
-                <input type="text" name="fullPoints" class="txtInput" ng-model="vm.currPoints.Full"/><br />*@
-
-                @*<label for="goalDiffPoints" id="title">Goal diff</label>
-                <input type="text" name="goalDiffPoints" class="txtInput" ng-model="vm.currPoints.GoalDif"/><br />
-
-                <label for="justWinnerPoints" id="title">Full</label>
-                <input type="text" class="txtInput" name="justWinnerPoints" ng-model="vm.currPoints.JustWinner"/><br />*@
-            </div>
-            @*<kendo-grid options="mainGridOptions"></kendo-grid>*@
-
-            <button class="btn-info rondedBtn  submitBtn center" ng-click="vm.onAddTotalizator()">Add</button>
         </div>
+        <p id="title">Please set your rules</p>
+        <div class="doubleSpace">
+            <div class="name">
+                <p id="title">Full: </p>
+                <p id="title">Goal diff: </p>
+                <p id="title"> Just winner: </p>
+            </div>
+            <div class="numericInput">
+                <input  kendo-numeric-text-box k-min="0" k-max="100" k-ng-model="vm.tPoints.Full" />
+                <input  kendo-numeric-text-box k-min="0" k-max="100" k-ng-model="vm.tPoints.GoalDif"/>
+                <input  kendo-numeric-text-box k-min="0" k-max="100" k-ng-model="vm.tPoints.JustWinner"/>
+            </div>
+
+            @*<label for="fullPoints" id="title">Full</label>
+            <input type="text" name="fullPoints" class="txtInput" ng-model="vm.currPoints.Full"/><br />*@
+
+            @*<label for="goalDiffPoints" id="title">Goal diff</label>
+            <input type="text" name="goalDiffPoints" class="txtInput" ng-model="vm.currPoints.GoalDif"/><br />
+
+            <label for="justWinnerPoints" id="title">Full</label>
+            <input type="text" class="txtInput" name="justWinnerPoints" ng-model="vm.currPoints.JustWinner"/><br />*@
+        </div>
+        @*<kendo-grid options="mainGridOptions"></kendo-grid>*@
+        <div class="floatClear"></div>
+        <div class="btnDiv">
+             <button class="btn-info rondedBtn  submitBtn center" ng-click="vm.onAddTotalizator()">Add</button>
+        </div>
+    </div>
 
 

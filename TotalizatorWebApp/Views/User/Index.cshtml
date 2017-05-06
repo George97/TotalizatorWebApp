@@ -1,13 +1,16 @@
 ﻿@{
     Layout = "~/Views/User/_UserLayout.cshtml";
 }
-<div class="main">
+<div class="myContainer">
     <div>
-       <h1>Hello , {{vm.currUser.FullName}}</h1>
+       <h1>{{vm.currUser.FullName}}</h1>
        <h1>Notifications:</h1>
-        <p ng-repeat="n in vm.userNotifications">
-            From: {{n.UserLogin}} . Totalizator : {{n.TotalizatorName}}
-        </p>
+        <div ng-repeat="n in vm.userNotifications">
+            <span>From: {{n.UserLogin}} . Totalizator : {{n.TotalizatorName}}</span>
+            <button class="btn-success" ng-click="vm.onAccept(n.NotificationId,n.TotalizatorId,n.UserId)">Add</button>
+            <button class="btn-danger" ng-click="vm.onReject(n.NotificationId,n.TotalizatorId,n.UserId)">Reject</button>
+        </div>
+        <h1>Points:  {{vm.currUser.Points}}</h1>
 
     </div>
 </div>

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.Metadata.Edm;
+//using System.Data.Entity.Core.Metadata.Edm;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +29,7 @@ namespace TotalizatorWebApp.Database.Context
 
         public DbSet<Result> Results { get; set; }
 
-        public DbSet<ForecastResult> ForecastResults { get; set; }
+        //public DbSet<ForecastResult> ForecastResults { get; set; }
 
         public DbSet<User> Users { get; set; }
 
@@ -96,7 +98,7 @@ namespace TotalizatorWebApp.Database.Context
                         .WithMany(tm => tm.Forecasts);
 
             modelBuilder.Entity<Match>()
-                        .HasMany<ForecastResult>(m => m.ForecastResults)
+                        .HasMany<Forecast>(m => m.Forecasts)
                         .WithRequired(fr => fr.Match)
                         .WillCascadeOnDelete(false);
 

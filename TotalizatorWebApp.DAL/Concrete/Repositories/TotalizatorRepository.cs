@@ -9,6 +9,7 @@ using TotalizatorWebApp.Database.Context;
 using TotalizatorWebApp.Database.Entity.BusinessLayer;
 using TotalizatorWebApp.Database.Entity.UserLayer;
 using TotalizatorWebApp.Database.Models.BusinessLayer;
+using TotalizatorWebApp.Database.Models.MatchLayer;
 using TotalizatorWebApp.Database.Models.UserLayer;
 
 namespace TotalizatorWebApp.DAL.Concrete.Repositories
@@ -47,12 +48,15 @@ namespace TotalizatorWebApp.DAL.Concrete.Repositories
                 var organaizer = context.Users.Single(u => u.UserId == t.OrganaizerId);
                 var users = GetTotalizatorUsers(t.TotalizatorId);
                 string access = t.isPublic ?"Public" :"Private";
+                var points = t.PointsAnalysis.Parse();
                 res.Add(new TotalizatorWithUsersView()
                 {
+                    TotalizatorId = t.TotalizatorId,
                     Name = t.Name,
                     Access = access,
                     OrganaizerLogin = organaizer.Login,
                     Users = users,
+                    PointsAnalysis = points,
                     Validity = t.Validity,
                     Stage = stage.Name,
                     League = league.Name
@@ -73,19 +77,19 @@ namespace TotalizatorWebApp.DAL.Concrete.Repositories
 
         }
 
-        public List<Totalizator> GetValidForUser(int userId)
+        public List<Totalizator> GetValidForUser(int userId, DateTime date) //валідність по даті і по унікальності прогнозу на тоталізатор
         {
             List<Totalizator> res = new List<Totalizator>();
             var all = context.Totalizators.ToList();
             foreach (var t in all)
             {
-                if(t.Validity> DateTime.Now)
+                if(t.Validity> date)
                 {
                     bool isValid = true;
-                    var totalizatorManager = context.TotalizatorManagers.Where(tm => tm.TotalizatorId == t.TotalizatorId);
-                    foreach (var item in totalizatorManager)
+                    var totalizatorManager = context.TotalizatorManagers.SingleOrDefault(tm => tm.TotalizatorId == t.TotalizatorId && tm.UserId == userId);
+                    if(totalizatorManager != null)
                     {
-                        if(item.UserId == userId)
+                       if(context.Forecasts.Where(f => f.TotalizatorManagerId == totalizatorManager.TotalizatorManagerId).ToList().Count>0)
                         {
                             isValid = false;
                         }
@@ -126,6 +130,10 @@ namespace TotalizatorWebApp.DAL.Concrete.Repositories
                 isPublic = isPublic
             };
             context.Totalizators.Add(totalizator);
+            //if (!isPublic)
+            //{
+            //    SetManagerId(totalizatorId, organaizerId);
+            //}
             return totalizatorId;
         }
 
@@ -137,27 +145,55 @@ namespace TotalizatorWebApp.DAL.Concrete.Repositories
         public int SetManagerId(int totalizatorId, int userId)
         {
             var index = context.TotalizatorManagers.ToList().Count;
-            context.TotalizatorManagers.Add(new TotalizatorManager()
+            var manager = context.TotalizatorManagers.SingleOrDefault(tm => tm.UserId == userId && tm.TotalizatorId == totalizatorId);
+            if (manager == null)
             {
-                TotalizatorId = totalizatorId,
-                Totalizator =  context.Totalizators.SingleOrDefault(t => t.TotalizatorId == totalizatorId),
-                UserId = userId,
-                User = context.Users.SingleOrDefault(u => u.UserId == userId),
-                UserAccess = true
-            });
-            return index + 1;
+                context.TotalizatorManagers.Add(new TotalizatorManager()
+                {
+                    TotalizatorId = totalizatorId,
+                    Totalizator = context.Totalizators.SingleOrDefault(t => t.TotalizatorId == totalizatorId),
+                    UserId = userId,
+                    User = context.Users.SingleOrDefault(u => u.UserId == userId),
+                    UserAccess = true
+                });
+                return index + 1;
+            }
+            return manager.TotalizatorId;
         }
 
-        public void SetForecast(int forecastResId, int totalManagerId)
+        public void SetForecast(MatchResultView res, int totalManagerId)
         {
+            int id = context.Forecasts.ToList().Count;
             context.Forecasts.Add(new Forecast()
             {
+                ForecastId = id + 1,
                 TotalizatorManagerId = totalManagerId,
                 TotalizatorManager = context.TotalizatorManagers.SingleOrDefault(tm => tm.TotalizatorManagerId == totalManagerId),
-                ForecastResultId = forecastResId,
-                ForecastResult = context.ForecastResults.SingleOrDefault(fr => fr.ForecastResultId == forecastResId)
-                
+                MatchId = res.MatchId,
+                Match = context.Matches.SingleOrDefault(m => m.MatchId == res.MatchId),
+                HomeTeamGoals = res.HomeTeamGoals,
+                GuestTeamGoals = res.GuestTeamPoints
             });
+            context.SaveChanges();
+            
+        }
+
+        public bool UserHasAccess(int userId, int totalId)
+        {
+            var total = context.Totalizators.Single(t => t.TotalizatorId == totalId);
+            if (total.isPublic || total.OrganaizerId == userId)
+            {
+                return true;
+            }
+            var tmanager = context.TotalizatorManagers.SingleOrDefault(tm => tm.UserId == userId && tm.TotalizatorId == totalId);
+            if(tmanager != null)
+            {
+                if (tmanager.UserAccess == true)
+                {
+                    return true;
+                }
+            }
+             return false;
         }
     }
 }

@@ -3,19 +3,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="sideBar">
-    @*<div class="menuBtn">
-        <div class="btn-info rondedBtn center">
-            @Html.ActionLink("Create Totalizator", "CreateTotalizator", "User")
-        </div>
-        <div class="btn-info rondedBtn center">
-            @Html.ActionLink("Show Rating", "CreateTotalizator", "User")
-        </div>
-    </div>*@
     <div class="collapse navbar-collapse" id="sidebar-nav" role="navigation">
         <ul id="nav">
             <li id="about">
                 <a href="/User/Index">
-                    <span class="icon icon-info"></span>About me
+                    <span class="icon icon-info"></span>Home
                 </a>
             </li>
             <li>
@@ -46,5 +38,8 @@
         <div ng-controller="UserNgController as vm">
             @RenderBody()
         </div>
+        <script src="~/Scripts/angular/user/userModule.js"></script>
+        <script src="~/Scripts/angular/user/userController.js"></script>
+        <script src="~/Scripts/angular/user/userService.js"></script>
     </div>
 

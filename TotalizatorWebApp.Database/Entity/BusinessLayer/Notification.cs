@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
@@ -9,7 +10,7 @@ using TotalizatorWebApp.Database.Models.BusinessLayer;
 
 namespace TotalizatorWebApp.Database.Entity.BusinessLayer
 {
-    public class Notification: IEntity<NotificationView>
+    public class Notification : IEntity<NotificationView>
     {
         public int NotificationId { get; set; }
 
@@ -34,8 +35,11 @@ namespace TotalizatorWebApp.Database.Entity.BusinessLayer
         {
             return new NotificationView()
             {
+                NotificationId = this.NotificationId,
                 TotalizatorName = this.Totalizator.Name,
+                TotalizatorId = this.TotalizatorId,
                 UserLogin = this.User.Login,
+                UserId = this.UserId,
                 Reject = this.Reject
             };
 

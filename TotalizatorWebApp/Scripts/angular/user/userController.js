@@ -1,10 +1,10 @@
 ﻿(function (angular) {
     var appModule = angular
-              .module("userModule", ["kendo.directives"])
+              .module("userModule", ["kendo.directives", "jtt_footballdata"])
               .controller("UserNgController", UserNgController)
               .directive("stateButton", stateButton);
 
-    UserNgController.$inject = ['$scope', 'userService'];
+    UserNgController.$inject = ['$scope', 'userService', 'footballdataFactory'];
 
     appModule.filter("jsDate", function () {
         return function (x) {
@@ -12,7 +12,7 @@
         };
     });
 
-    function UserNgController($scope, userService) {
+    function UserNgController($scope, userService, footballdataFactory) {
         var app = this;
         app.currUser = {};
         app.userNotifications = [];
@@ -35,7 +35,19 @@
         app.tCurrId = -1;
 
         console.log('UserNgController');
+        
         Init();
+
+        //footballdataFactory.getFixturesBySeason({
+        //    id: 426,
+        //    matchday: 34,
+        //    league: 'PL',
+        //    apiKey: apiKey,
+        //}).then(function (_data) {
+        //    console.info("getFixturesBySeason", _data);
+        //    userService.postResult(_data.data.fixtures)
+        //});
+
         
         app.onLeagueChange = function () {
             console.log('onLeagueChange');
@@ -53,28 +65,23 @@
             userService.createTotalizator(app.currUser.UserId, app.tTitle, app.tPoints, app.tStageId, app.isTPublic)
             .then(function (respond) {
                 location.href = '/User/Index';
-                //userService.getTotalizator(respond.data).then(function (respond) {
-                //    console.log('onAddTotalizator    ', respond.data);
-                //    app.totalizators.push(respond.data);
-                //    console.log(app.totalizators);
-                //    //location.href = '/User/Index';
-                //})
             })
-            //userService.addUser(1, 2);
         }
         app.onTotalizator = function (t) {
             app.SelectedTotal = t;
-            console.log(t.isPublic);
-            if (t.isPublic) {
-                userService.getBlunkResults(t.StageId).then(function (response) {
-                    app.matchResults = response.data;
-                    app.showMatches = true;
-                    app.selectedTiD = t.TotalizatorId;
+            userService.userHasAccess(app.currUser.UserId, t.TotalizatorId).then(function (respond) {
+                console.log(respond.data);
+                if (respond.data=="True") {
+                    userService.getBlunkResults(t.StageId).then(function (response) {
+                        app.matchResults = response.data;
+                        app.showMatches = true;
+                        app.selectedTiD = t.TotalizatorId;
                 })
-            }
-            else {
-                app.msgShow = true;
-            }
+                }
+                else {
+                    app.msgShow = true;
+                }
+            })
         }
         app.onSend = function () {
             console.log(app.SelectedTotal);
@@ -133,6 +140,22 @@
             pageable: true,
         };
 
+        app.onAccept= function(notificationId,totalId,userId){
+            userService.acceptUser(userId, totalId).then(function (respond) {
+                userService.removeNotification(notificationId).then(function (respond) {
+                    location.href = '/User/Index';
+                })
+            })
+        }
+
+        app.onReject = function (notificationId, totalId, userId) {
+            userService.rejectUser(userId, totalId).then(function (respond) {
+                userService.removeNotification(notificationId).then(function (respond) {
+                    location.href = '/User/Index';
+                })
+            })
+        }
+
         function Init() {
             console.log('init');
             
@@ -150,10 +173,15 @@
 
             userService.getAllTotalizators().then(function (respond) {
                 app.allTotal = respond.data;
+                console.log(app.allTotal);
             })
 
             userService.getLeagues().then(function (respond) {
                 app.leagues = respond.data;
+            })
+
+            userService.getStages(app.currLeagueId).then(function (respond) {
+                app.currStages = respond.data;
             })
 
             userService.getBlankPA().then(function (respond) {
@@ -163,13 +191,6 @@
             userService.getAllUsers().then(function (respond) {
                 app.users = respond.data;
             })
-
-            
-            //userService.getNextTotalizatorId().then(function (respond) {
-            //    app.currTotalizatorIndex = respond.data;
-            //})
-            
-
         }
 
         $scope.onUserAdd = function (s) {
@@ -179,43 +200,39 @@
             console.lof(addedUsersId);
         }
 
-        $scope.mainGridOptions = {
-            dataSource: {
-                transport: {
-                    read: function (e) {
-                        // on success
-                        userService.getAllTotalizators().then(function (respond) {
-                            var t = respond.data;
-                            e.success(t);
-                        })
-                        // on failure
-                        //e.error("XHR response", "status code", "error message");
-                    }
-                },
-                pageSize: 5,
-                serverPaging: true,
-                serverSorting: true
-            },
-            //data: app.users,
-            sortable: true,
-            pageable: true,
-            //dataBound: function () {
-            //    this.expandRow(this.tbody.find("tr.k-master-row").first());
-            //},
+        //$scope.mainGridOptions = {
+        //    dataSource: {
+        //        transport: {
+        //            read: function (e) {
+        //                userService.getAllTotalizators().then(function (respond) {
+        //                    var t = respond.data;
+        //                    e.success(t);
+        //                })
+        //            }
+        //        },
+        //        pageSize: 5,
+        //        serverPaging: true,
+        //        serverSorting: true
+        //    },
+        //    sortable: true,
+        //    pageable: true,
+        //    //dataBound: function () {
+        //    //    this.expandRow(this.tbody.find("tr.k-master-row").first());
+        //    //},
            
-            columns: [{
-                field: "Name",
-                title: "Name",
-                width: "120px"
-            },{
-                field: "isPublic",
-                title: "isPublic",
-                width: "240px"
-            }
-                //{ command: { text: "Add", click: app.onUserAdd(dataItem) }, title: " ", width: "180px" }
-                //{ template: '<button class="btn-info" ng-click="onUserAdd(dataItem)" state-button><span class="glyphicon glyphicon-plus"></span></button>' }
-            ]
-        };
+        //    columns: [{
+        //        field: "Name",
+        //        title: "Name",
+        //        width: "120px"
+        //    },{
+        //        field: "isPublic",
+        //        title: "isPublic",
+        //        width: "240px"
+        //    }
+        //        //{ command: { text: "Add", click: app.onUserAdd(dataItem) }, title: " ", width: "180px" }
+        //        //{ template: '<button class="btn-info" ng-click="onUserAdd(dataItem)" state-button><span class="glyphicon glyphicon-plus"></span></button>' }
+        //    ]
+        //};
         $scope.leaguesDataSource = {
             transport: {
                 read: function (e) {

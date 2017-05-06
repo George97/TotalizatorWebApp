@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using TotalizatorWebApp.Database.Entity.Abstract;
 using TotalizatorWebApp.Database.Models.MatchLayer;
+using TotalizatorWebApp.Database.Entity.BusinessLayer;
 
 namespace TotalizatorWebApp.Database.Entity.MatchLayer
 {
@@ -12,7 +13,7 @@ namespace TotalizatorWebApp.Database.Entity.MatchLayer
     {
         public Match()
         {
-            ForecastResults = new HashSet<ForecastResult>();
+            Forecasts = new HashSet<Forecast>();
         }
 
         public int MatchId { get; set; }
@@ -36,7 +37,7 @@ namespace TotalizatorWebApp.Database.Entity.MatchLayer
 
         public virtual Result Result { get; set; }
 
-        public virtual ICollection<ForecastResult> ForecastResults{ get; set; }
+        public virtual ICollection<Forecast> Forecasts{ get; set; }
 
         public MatchView Parse()
         {

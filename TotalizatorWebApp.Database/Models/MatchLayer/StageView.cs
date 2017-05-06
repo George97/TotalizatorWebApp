@@ -14,5 +14,7 @@ namespace TotalizatorWebApp.Database.Models.MatchLayer
 
         public string LeagueName { get; set; }
 
+        public int MatchDay { get; set; }
+
     }
 }

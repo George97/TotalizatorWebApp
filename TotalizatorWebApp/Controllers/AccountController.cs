@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using TotalizatorWebApp.Controllers.Data;
 using TotalizatorWebApp.DAL.Concrete.UnitOfWork;
 using TotalizatorWebApp.Models;
 
@@ -11,10 +12,11 @@ namespace TotalizatorWebApp.Controllers
 {
     public class AccountController : Controller
     {
-        private UnitOfWork unitOfWork = new UnitOfWork();
+        //private UnitOfWork unitOfWork = new UnitOfWork();
         // GET: Account
         public ActionResult Login()
         {
+            //var user = unitOfWork.UserRepository.Get(1);
             return View();
         }
 
@@ -22,8 +24,10 @@ namespace TotalizatorWebApp.Controllers
         public ActionResult Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid) return View(model);
-
-            var userValid = unitOfWork.UserRepository.UserExist(model.Username, model.Password);
+            string msg;
+            var userValid = new DataController().UserExist(model.Username, model.Password,out msg);
+            
+            //bool userValid = unitOfWork.UserRepository.UserExist(model.Username, model.Password);
             if (userValid)
             {
                 FormsAuthentication.SetAuthCookie(model.Username, false);
@@ -37,12 +41,19 @@ namespace TotalizatorWebApp.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Index", "User");
+                   if(new DataController().GetUserRole(model.Username)=="Admin")
+                    {
+                        return RedirectToAction("AdminPage", "Admin");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "User");
+                    }
                 }
             }
             else
             {
-                ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                ModelState.AddModelError("", msg);
             }
             return View(model);
         }

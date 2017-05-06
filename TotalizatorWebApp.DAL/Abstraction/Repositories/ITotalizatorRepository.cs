@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TotalizatorWebApp.Database.Entity.BusinessLayer;
 using TotalizatorWebApp.Database.Models.BusinessLayer;
+using TotalizatorWebApp.Database.Models.MatchLayer;
 using TotalizatorWebApp.Database.Models.UserLayer;
 
 namespace TotalizatorWebApp.DAL.Abstraction.Repositories
@@ -24,12 +25,12 @@ namespace TotalizatorWebApp.DAL.Abstraction.Repositories
 
         List<UserView> GetTotalizatorUsers(int totalId);
 
-        List<Totalizator> GetValidForUser(int userId);
+        List<Totalizator> GetValidForUser(int userId,DateTime date);
 
         int SetManagerId(int totalizatorId, int userId);
 
-        void SetForecast(int forecastResId, int totalManagerId);
+        void SetForecast(MatchResultView res, int totalManagerId);
 
-
+        bool UserHasAccess(int userId, int totalId);
     }
 }

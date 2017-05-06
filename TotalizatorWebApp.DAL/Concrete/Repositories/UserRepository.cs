@@ -7,6 +7,7 @@ using TotalizatorWebApp.DAL.Abstraction.Repositories;
 using TotalizatorWebApp.Database.Context;
 using TotalizatorWebApp.Database.Entity.BusinessLayer;
 using TotalizatorWebApp.Database.Entity.UserLayer;
+using TotalizatorWebApp.Database.Models.API;
 
 namespace TotalizatorWebApp.DAL.Concrete.Repositories
 {
@@ -22,13 +23,20 @@ namespace TotalizatorWebApp.DAL.Concrete.Repositories
         {
             return context.Users.ToList();
         }
-        public bool UserExist(string login, string pass)
+        public bool UserExist(string login, string pass,out string msg)
         {
             var user = context.Users.SingleOrDefault(u => u.Login == login && u.Password == pass);
             if(user!=null)
             {
-                return true;
+                if (user.isBanned == 0)
+                {
+                    msg = "success";
+                    return true;
+                }
+                msg = "Sorry, but you were banned";
+                return false;
             }
+            msg = "The user name or password provided is incorrect.";
             return false;
         }
 
@@ -52,23 +60,29 @@ namespace TotalizatorWebApp.DAL.Concrete.Repositories
             return context.Users.SingleOrDefault(u => u.UserId == id);
         }
 
-        public void SenRequest(int userId, int totalId, int orgId)
+        public void SetRequest(int userId, int totalId, int orgId)
         {
-            var user = context.Users.SingleOrDefault(u => u.UserId == userId);
-            var org = context.Users.SingleOrDefault(u => u.UserId == orgId);
-            var total = context.Totalizators.SingleOrDefault(t => t.TotalizatorId == totalId);
-
-            Notification notification = new Notification()
+            if(context.Notifications.SingleOrDefault(n => n.UserId == userId && n.TotalizatorId == totalId) == null)
             {
-                UserId = userId,
-                User = user,
-                Receiver = org,
-                ReceiverId = orgId,
-                TotalizatorId = totalId,
-                Totalizator = total
-            };
-
-            context.Notifications.Add(notification);
+                int index = context.Notifications.ToList().Count;
+                var user = context.Users.SingleOrDefault(u => u.UserId == userId);
+                var org = context.Users.SingleOrDefault(u => u.UserId == orgId);
+                var total = context.Totalizators.SingleOrDefault(t => t.TotalizatorId == totalId);
+                Notification notification = new Notification()
+                {
+                    NotificationId= index+1,
+                    UserId = userId,
+                    User = user,
+                    ReceiverId = orgId,
+                    Receiver = org,
+                    TotalizatorId = totalId,
+                    Totalizator = total
+                };
+                context.Notifications.Add(notification);
+                //context.SaveChanges();
+                //int index = context.Notifications.ToList().Count;
+                //context.Notifications.ToList().Last().NotificationId = index;
+            }
         }
 
         public List<Notification> GetNotifications(int userId)
@@ -76,6 +90,74 @@ namespace TotalizatorWebApp.DAL.Concrete.Repositories
             return context.Notifications.Where(n => n.ReceiverId == userId).ToList();
         }
 
+        public void AcceptUser(int userId,int totalId)
+        {
+            setUserAcces(userId, totalId, true);
+        }
 
+        public void RejectUser(int userId, int totalId)
+        {
+            setUserAcces(userId, totalId, false);
+        }
+
+        private void setUserAcces(int userId, int totalId,bool Access)
+        {
+            var total = context.Totalizators.SingleOrDefault(t => t.TotalizatorId == totalId);
+            var user = context.Users.SingleOrDefault(u => u.UserId == userId);
+            var tmanagers = context.TotalizatorManagers.Where(tM => tM.TotalizatorId == totalId && tM.UserId == userId).ToList();
+            if(tmanagers.Count>0)
+            {
+                foreach (var t in tmanagers)
+                {
+                    context.TotalizatorManagers.Remove(t);
+                }
+            }
+            TotalizatorManager tm = new TotalizatorManager()
+            {
+                TotalizatorId = totalId,
+                Totalizator = total,
+                UserId = userId,
+                User = user,
+                UserAccess = Access
+            };
+            context.TotalizatorManagers.Add(tm);
+        }
+
+        public void RemoveNotification(int id)
+        {
+            var notification =context.Notifications.SingleOrDefault(n => n.NotificationId == id);
+            context.Notifications.Remove(notification);
+        }
+
+        public void BanUser(int userId)
+        {
+            var user = context.Users.SingleOrDefault(u => u.UserId == userId).isBanned = 1;
+            context.SaveChanges();
+        }
+
+        //public void setPoints(int stageId, IEnumerable<FixtureView> results)
+        //{
+        //    var total = context.Totalizators.Where(t => t.StageId == stageId).ToList();
+        //    foreach (var t in total)
+        //    {
+        //        var tManagers = context.TotalizatorManagers.Where(tm => tm.TotalizatorId == t.TotalizatorId).ToList();
+        //        foreach (var manager in tManagers)
+        //        {
+        //            var user = manager.User;
+        //            var pointsRules = manager.Totalizator.PointsAnalysis;
+        //            var forecasts = context.Forecasts.Where(f => f.TotalizatorManagerId == manager.TotalizatorManagerId).ToList();
+        //            foreach (var forecast in forecasts)
+        //            {
+        //                var fResults = context.ForecastResults.Where(fR => fR.ForecastResultId == forecast.ForecastResultId).ToList();
+        //                double sum = 0;
+        //                int count = 0;
+        //                foreach (var res in fResults)
+        //                {
+        //                    if(res.GuestTeamGoals ==)
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
     }
 }

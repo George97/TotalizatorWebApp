@@ -51,7 +51,7 @@
 }
 
 #title{
-    font-size:18pt;
+    font-size:20pt;
 }
 .table{
     /*border-style:solid;
@@ -130,13 +130,73 @@
 .nav > li > a:focus {
     background: none;
 }
+.navbar-nav{
+    float:right;
+}
 #sidebar-nav{
   padding: 0;
 }
-.matchTable{
-    
+.myContainer{
+    background-color:#c1d6d6;
+    padding:20px;
+    margin:20px;
+    min-height:750px;
+}
+.info{
+    width:100%;
+    height:300px;
+    margin-bottom:40px;
+}
+.mainInfo{
+    width:40%;
+    float:left;
 }
 
+.detailedInfo{
+    width:60%;
+    float:right;
+}
+
+.pointsBox{
+    margin-right:200px;
+}
+.message{
+    margin-bottom:40px;
+}
+.rightSide{
+    float:right;
+}
+.totalTable{
+    margin-bottom:40px;
+}
+.textInput{
+    width:100px;
+}
+.stagesList{
+    margin-top:30px;
+    margin-bottom:10px;
+}
+.doubleSpace{
+    width:80%;
+    margin-left:20%;
+}
+.inputBox{
+    float:right;
+}
+.name{
+    float:left;
+    width:150px;
+}
+.numericInput{
+    width:250px;
+    float:right;
+}
+.floatClear{
+    clear:both;
+}
+.btnDiv{
+    margin-top:40px;
+}
 
 
 

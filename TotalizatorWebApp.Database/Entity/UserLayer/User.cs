@@ -30,6 +30,8 @@ namespace TotalizatorWebApp.Database.Entity.UserLayer
 
         public double Points { get; set; }
 
+        public int isBanned { get; set; }
+
         public virtual ICollection<TotalizatorManager> TotalizatorManagers { get; set; }
 
         public virtual ICollection<Notification> Notifications { get; set; }

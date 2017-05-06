@@ -27,14 +27,17 @@
 
         <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
         <script src="~/Scripts/bootstrap.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.js"></script>
-        <script src="https://kendo.cdn.telerik.com/2017.1.223/js/kendo.all.min.js"></script>
-        @*<script src="https://kendo.cdn.telerik.com/2017.1.223/js/kendo.timezones.min.js"></script>*@
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2017.1.223/js/kendo.all.min.js"></script>
+    <script src="~/Scripts/angular-footballdata-api-factory.js"></script>
+
+    <script src="~/Scripts/angular/admin/adminModule.js"></script>
+    <script src="~/Scripts/angular/admin/adminController.js"></script>
+    <script src="~/Scripts/angular/admin/adminService.js"></script>
+
 </head>
 <body>
-    @*<div class="content">*@
         <div class="navbar navbar-inverse navbar-fixed-top">
-            @*<div class="container">*@
                 <div class="navbar-header">
                     <span class="navbar-brand">Totalizator</span>
                 </div>
@@ -43,25 +46,21 @@
                         <li><a href="/Account/LogOut"> Log Out</a></li>
                     </ul>
                 </div>
-            @*</div>*@
         </div>
-
-        @*<script src="~/Scripts/angular/app/appModule.js"></script>*@
-        <script src="~/Scripts/angular/user/userModule.js"></script>
-
-        @*<script src="~/Scripts/angular/app/appController.js"></script>
-        <script src="~/Scripts/angular/app/appService.js"></script>*@
-        <script src="~/Scripts/angular/user/userController.js"></script>
-        <script src="~/Scripts/angular/user/userService.js"></script>
-
-        @*<script src="~/Scripts/angular/user/userController.js"></script>
-        <script src="~/Scripts/angular/user/userService.js"></script>*@
 
         <div>
             @RenderBody()
             <hr />
         </div>
-    @*</div>*@
+       
+
+        @*<script src="~/Scripts/angular/user/userModule.js"></script>
+        <script src="~/Scripts/angular/user/userController.js"></script>
+        <script src="~/Scripts/angular/user/userService.js"></script>*@
+
+        @*<script src="~/Scripts/angular/admin/adminModule.js"></script>
+        <script src="~/Scripts/angular/admin/adminController.js"></script>
+        <script src="~/Scripts/angular/admin/adminService.js"></script>*@
 
 </body>
 

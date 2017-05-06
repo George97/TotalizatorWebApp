@@ -1,0 +1,37 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="sideBar">
+    <div class="collapse navbar-collapse" id="sidebar-nav" role="navigation">
+        <ul id="nav">
+            <li id="about">
+                <a href="/Admin/AdminPage">
+                    <span class="icon icon-info"></span>Home
+                </a>
+            </li>
+            <li>
+                <a href="/Admin/Totalizators">
+                    <span class="icon icon-chart-column"></span>Totalizators
+                </a>
+            </li>
+            <li>
+                <a href="/Admin/Users">
+                    <span class="icon icon-star-empty"></span>Users
+                </a>
+            </li>
+            <li>
+                <a href="/Admin/SetResult">
+                    <span class="icon icon-star-empty"></span>Set Results
+                </a>
+            </li>
+        </ul>
+    </div>
+
+</div>
+<div class="mainContent" ng-app="adminModule">
+    <div ng-controller="AdminNgController as vm">
+        @RenderBody()
+    </div>
+</div>
+

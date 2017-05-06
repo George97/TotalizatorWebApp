@@ -10,11 +10,14 @@ namespace TotalizatorWebApp.Database.Models.BusinessLayer
     {
         public int NotificationId { get; set; }
 
+        public int TotalizatorId { get; set; }
+
         public string TotalizatorName { get; set; }
 
         public string UserLogin { get; set; }
 
-        public bool? Reject { get; set; }
+        public int UserId { get; set; }
 
+        public bool? Reject { get; set; }
     }
 }

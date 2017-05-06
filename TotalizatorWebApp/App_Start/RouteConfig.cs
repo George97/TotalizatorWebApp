@@ -15,8 +15,10 @@ namespace TotalizatorWebApp
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "User", action = "Index", id = UrlParameter.Optional }
+                url: "{controller}/{action}",
+                                //defaults: new { controller = "Admin", action = "AdminPage", id = UrlParameter.Optional }
+                                defaults: new { controller = "User", action = "Index", id = UrlParameter.Optional }
+
             );
         }
     }

@@ -11,12 +11,16 @@ namespace TotalizatorWebApp.Database.Entity.BusinessLayer
     {
         public int ForecastId { get; set; }
 
-        public int ForecastResultId { get; set; }
+        public int HomeTeamGoals { get; set; }
+
+        public int GuestTeamGoals { get; set; }
+
+        public int MatchId { get; set; }
+
+        public virtual Match Match { get; set; }
 
         [ForeignKey("TotalizatorManager")]
         public int TotalizatorManagerId { get; set; }
-
-        public ForecastResult ForecastResult { get; set; }
 
         public TotalizatorManager TotalizatorManager { get; set; }
     }

@@ -1,0 +1,29 @@
+﻿@{
+    Layout = "~/Views/Admin/_AdminLayout.cshtml";
+}
+<p>Please select league</p>
+@*<select kendo-combo-box
+        ng-model="vm.currLeagueId"
+        ng-change="vm.onLeagueChange()"
+        k-placeholder="'Select league'"
+        k-data-text-field="'Name'"
+        k-data-value-field="'LeagueId'"
+        k-filter="'contains'"
+        k-auto-bind="true"
+        k-min-length="3"
+        k-data-source="leaguesDataSource"
+        style="width: 100%"></select>
+
+<div class="stagesList">
+    <li ng-repeat="s in vm.currStages">
+        <input type="radio" name="selectedStage" value="{{s.StageId}}" ng-model="vm.tStageId" />{{s.Name}}<br />
+    </li>
+</div>*@
+<div>
+    <p>Champion League Id: 440 Rounds: 1-10</p>
+    <p>Premier League Id: 426 Rounds: 1-38</p>
+    <p>Please enter league id and match day</p>
+    <input type="text" placeholder="Enter League Id" ng-model="vm.LeagueId" />
+    <input type="text" placeholder="Enter Match Date" ng-model="vm.MatchDay" />
+</div>
+<button class="btn-info" ng-click="vm.onResultInit()">Get Result</button>

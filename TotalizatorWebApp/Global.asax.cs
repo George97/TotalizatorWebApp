@@ -15,6 +15,7 @@ namespace TotalizatorWebApp
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            //ModelBinders.Binders.DefaultBinder = new JsonModelBinder();
         }
         protected void Application_Error(object sender, EventArgs e)
         {
@@ -29,22 +30,10 @@ namespace TotalizatorWebApp
                     try
                     {
                         UnitOfWork unitOfWork = new UnitOfWork();
-                        //let us take out the username now                
                         string login = FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).Name;
 
                         string roles = unitOfWork.UserRepository.GetUserRole(login);
 
-                        
-                        //using (userDbEntities entities = new userDbEntities())
-                        //{
-                        //    User user = entities.Users.SingleOrDefault(u => u.username == username);
-
-                        //    roles = user.Roles;
-                        //}
-                        //let us extract the roles from our own custom cookie
-
-
-                        //Let us set the Pricipal with our user specific details
                         HttpContext.Current.User = new System.Security.Principal.GenericPrincipal(
                           new System.Security.Principal.GenericIdentity(login, "Forms"), roles.Split(';'));
                     }

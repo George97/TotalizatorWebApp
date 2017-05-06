@@ -66,6 +66,9 @@
     <Compile Include="Entity\MatchLayer\Stage.cs" />
     <Compile Include="Entity\MatchLayer\Team.cs" />
     <Compile Include="Entity\UserLayer\User.cs" />
+    <Compile Include="Models\API\FixtureView.cs" />
+    <Compile Include="Models\API\HalfTimeView.cs" />
+    <Compile Include="Models\API\ResultView.cs" />
     <Compile Include="Models\BusinessLayer\NotificationView.cs" />
     <Compile Include="Models\BusinessLayer\PointsAnalysisView.cs" />
     <Compile Include="Models\BusinessLayer\TotalizatorWithUsersView.cs" />

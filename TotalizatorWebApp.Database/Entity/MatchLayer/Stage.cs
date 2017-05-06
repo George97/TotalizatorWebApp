@@ -21,6 +21,8 @@ namespace TotalizatorWebApp.Database.Entity.MatchLayer
 
         public string Name { get; set; }
 
+        public int MatchDay { get; set; }
+
         [ForeignKey("League")]
         public int LeagueId { get; set; }
 
@@ -36,7 +38,8 @@ namespace TotalizatorWebApp.Database.Entity.MatchLayer
             {
                 StageId = this.StageId,
                 Name = this.Name,
-                LeagueName = this.League.Name
+                LeagueName = this.League.Name,
+                MatchDay = this.MatchDay
             };
         }
     }

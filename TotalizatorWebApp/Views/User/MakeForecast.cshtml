@@ -2,12 +2,13 @@
 @{
     Layout = "~/Views/User/_UserLayout.cshtml";
 }
-<div>
-    @*<kendo-grid options="mainGridOptions"></kendo-grid>*@
+<div class="myContainer">
     <div class="message" ng-show="vm.msgShow">
-        <p>This totalizator is private. Send request to organaizer for access confirmation ? </p>
-        <button class="btn-success" ng-click="vm.onSend()">Yes</button>
-        <button class="btn-info" ng-click="vm.msgShow= !vm.msgShow">Cancel</button>
+        <p>This totalizator is private. Send request to organaizer for access confirmation </p>
+        <div class="rightSide">
+            <button class="btn-success" ng-click="vm.onSend()">Yes</button>
+            <button class="btn-info" ng-click="vm.msgShow= !vm.msgShow">Cancel</button>
+        </div>
     </div>
     <div class="totalTable" ng-show="!vm.showMatches">
         <table class="table table-striped">
@@ -52,5 +53,6 @@
             </tbody>
         </table>
         <button class="btn-info rondedBtn  submitBtn center" ng-click="vm.onForecast()">Done</button>
+        <button class="btn-info rondedBtn  submitBtn center" ng-click="vm.showMatches=false">Cancel</button>
     </div>
 </div>

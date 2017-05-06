@@ -1,17 +1,31 @@
 ﻿@{
     Layout = "~/Views/User/_UserLayout.cshtml";
 }
-<div>
-    <div ng-repeat="t in vm.allTotal">
-        <div class="info">
-            <p id="title">{{t.Name}}</p>
-            <p id="title">Totalizator Info: </p>
-            <p id="title">League: {{t.League}}</p>
-            <p id="title">Stage: {{t.Stage}}</p>
-            <p>Organaizer: {{t.OrganaizerLogin}}</p>
-            <p>Date: {{t.Validity| jsDate | date:"yy-MM-dd   HH:mm"}}</p>
-            <p>Access: {{t.Access}}</p>
+    <div ng-repeat="t in vm.allTotal" class="totalItem">
+        <div class="myContainer">
+            <div class="info">
+                <div class="mainInfo">
+                    <p id="title">{{t.Name}}</p>
+                    <p>Organaizer: {{t.OrganaizerLogin}}</p>
+                </div>
+                <div class="detailedInfo">
+                    <p id="title"> Info: </p>
+                    <p>League: {{t.League}}</p>
+                    <p>Stage: {{t.Stage}}</p>
+                    <p>Date: {{t.Validity| jsDate | date:"yy-MM-dd   HH:mm"}}</p>
+                    <p>Access: {{t.Access}}</p>
+                    <span id="title">Points:</span>
+                    <div class="pointsBox rightSide">
+                        <p>Full: {{t.PointsAnalysis.Full}}</p>
+                        <p>Goals differences: {{t.PointsAnalysis.GoalDif}}</p>
+                        <p>Just winner: {{t.PointsAnalysis.JustWinner}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="usersBox">
+                <kendo-grid k-data-source="t.Users" k-sortable="true" k-options="vm.gridTotalOptions"></kendo-grid>
+            </div>
+
         </div>
-        <kendo-grid k-data-source="vm.setUsers(t.Users)" k-sortable="true" k-options="vm.gridTotalOptions"></kendo-grid>
+        @*<kendo-grid k-data-source="vm.setUsers(t.Users)" k-sortable="true" k-options="vm.gridTotalOptions"></kendo-grid>*@
     </div>
-</div>

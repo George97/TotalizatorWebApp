@@ -133,6 +133,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\angular-footballdata-api-factory.js" />
     <Content Include="Scripts\angular\admin\adminController.js" />
     <Content Include="Scripts\angular\admin\adminModule.js" />
     <Content Include="Scripts\angular\admin\adminService.js" />
@@ -156,18 +157,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Admin\AdminController.cs" />
-    <Compile Include="Controllers\Home\HomeController.cs" />
+    <Compile Include="Controllers\Data\DataController.cs" />
     <Compile Include="Controllers\User\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\EntityListParser.cs" />
-    <Compile Include="Models\LeagueView.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
-    <Compile Include="Models\MatchView.cs" />
-    <Compile Include="Models\StageView.cs" />
-    <Compile Include="Models\TeamView.cs" />
-    <Compile Include="Models\TotalizatorView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -184,7 +180,6 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\ShowMatchSchedules.cshtml" />
-    <Content Include="Views\Admin\MatchSchedule.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\CreateTotalizator.cshtml" />
     <Content Include="Views\User\_UserLayout.cshtml" />
@@ -195,6 +190,10 @@
     <Content Include="Views\User\ShowTotalizators.cshtml" />
     <Content Include="Views\User\ForecastPage.cshtml" />
     <Content Include="Views\User\MakeForecast.cshtml" />
+    <Content Include="Views\Admin\_AdminLayout.cshtml" />
+    <Content Include="Views\Admin\Totalizators.cshtml" />
+    <Content Include="Views\Admin\Users.cshtml" />
+    <Content Include="Views\Admin\SetResult.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -204,6 +203,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Data\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TotalizatorWebApp.DAL\TotalizatorWebApp.DAL.csproj">
