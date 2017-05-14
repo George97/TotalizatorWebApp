@@ -17,6 +17,8 @@ using TotalizatorWebApp.Database.Entity.BusinessLayer;
 using System.Reflection;
 using TotalizatorWebApp.Models;
 using TotalizatorWebApp.Database.Models.API;
+using Ninject;
+using TotalizatorWebApp.DAL.Abstraction.UnitOfWork;
 
 namespace TotalizatorWebApp.Controllers.User
 {
@@ -24,7 +26,8 @@ namespace TotalizatorWebApp.Controllers.User
     {
         //private static readonly object locker = new object();
 
-        private UnitOfWork unitOfWork = new UnitOfWork();
+        //[Inject]
+        //public IUnitOfWork unitOfWork { get; set; }
 
         // GET: User
         //[Authorize]
@@ -32,7 +35,7 @@ namespace TotalizatorWebApp.Controllers.User
         {
             //var user = UnitOfWork.UserRepository.Get(1);
            // unitOfWork.TotalizatorRepository.SetManagerId(1, 1);
-          // var user = unitOfWork.UserRepository.Get(1);
+           //var user = unitOfWork.UserRepository.Get(1);
             return View();
         }
 

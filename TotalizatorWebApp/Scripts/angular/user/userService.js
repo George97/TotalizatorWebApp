@@ -99,17 +99,19 @@
             return promise;
         }
 
-        function setTManagerId(tid,userId) {
-            var promise = $http.get('/Data/SetTManagerId', { params: { "tid": tid, "userId": userId } });
+        function setTManagerId(tid, userId, access) {
+            var promise = $http.get('/Data/SetTManagerId', { params: { "tid": tid, "userId": userId, "access": access } });
             return promise;
         }
 
-        function setForecast(matchResults,tmanagerId) {
+        function setForecast(matchResults,totalId,userId) {
+            var promise = $http.post('/Data/SetForecast', { "matchResults": matchResults, "totalId": totalId, "userId": userId });
             console.log(matchResults);
-            matchResults.forEach(function (matchResult) {
-                console.log('GuestTeamName', matchResult.GuestTeamName);
-                $http.post('/Data/SetForecast', { "matchResult": matchResult, "tmanagerId": tmanagerId });
-            })
+            return promise;
+            //matchResults.forEach(function (matchResult) {
+            //    console.log('GuestTeamName', matchResult.GuestTeamName);
+            //    $http.post('/Data/SetForecast', { "matchResult": matchResult, "tmanagerId": tmanagerId });
+            //})
         }
        
         function senRequest(userId, totalId, orgId) {

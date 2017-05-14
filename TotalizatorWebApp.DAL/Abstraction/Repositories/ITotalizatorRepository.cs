@@ -27,9 +27,9 @@ namespace TotalizatorWebApp.DAL.Abstraction.Repositories
 
         List<Totalizator> GetValidForUser(int userId,DateTime date);
 
-        int SetManagerId(int totalizatorId, int userId);
+        int SetManagerId(int totalizatorId, int userId,bool access);
 
-        void SetForecast(MatchResultView res, int totalManagerId);
+        void SetForecast(List<MatchResultView> res, int totalId,int userId);
 
         bool UserHasAccess(int userId, int totalId);
     }

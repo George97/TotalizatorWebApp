@@ -14,7 +14,7 @@ using TotalizatorWebApp.Database.Models.UserLayer;
 
 namespace TotalizatorWebApp.DAL.Concrete.Repositories
 {
-    class TotalizatorRepository : ITotalizatorRepository
+    public class TotalizatorRepository : ITotalizatorRepository
     {
         private TotalizatorContext context;
         public TotalizatorRepository(TotalizatorContext ctx)
@@ -58,7 +58,7 @@ namespace TotalizatorWebApp.DAL.Concrete.Repositories
                     Users = users,
                     PointsAnalysis = points,
                     Validity = t.Validity,
-                    Stage = stage.Name,
+                    Stage = stage.Name+"  " + stage.MatchDay,
                     League = league.Name
                 });
             }
@@ -130,6 +130,7 @@ namespace TotalizatorWebApp.DAL.Concrete.Repositories
                 isPublic = isPublic
             };
             context.Totalizators.Add(totalizator);
+            context.SaveChanges();
             //if (!isPublic)
             //{
             //    SetManagerId(totalizatorId, organaizerId);
@@ -142,7 +143,7 @@ namespace TotalizatorWebApp.DAL.Concrete.Repositories
             return context.Totalizators.SingleOrDefault(t => t.TotalizatorId == id);
         }
 
-        public int SetManagerId(int totalizatorId, int userId)
+        public int SetManagerId(int totalizatorId, int userId, bool access)
         {
             var index = context.TotalizatorManagers.ToList().Count;
             var manager = context.TotalizatorManagers.SingleOrDefault(tm => tm.UserId == userId && tm.TotalizatorId == totalizatorId);
@@ -154,28 +155,33 @@ namespace TotalizatorWebApp.DAL.Concrete.Repositories
                     Totalizator = context.Totalizators.SingleOrDefault(t => t.TotalizatorId == totalizatorId),
                     UserId = userId,
                     User = context.Users.SingleOrDefault(u => u.UserId == userId),
-                    UserAccess = true
+                    UserAccess = access
                 });
+                context.SaveChanges();
                 return index + 1;
             }
-            return manager.TotalizatorId;
+            context.SaveChanges();
+            return manager.TotalizatorManagerId;
         }
 
-        public void SetForecast(MatchResultView res, int totalManagerId)
+        public void SetForecast(List<MatchResultView> results, int totalId,int  userId)
         {
-            int id = context.Forecasts.ToList().Count;
-            context.Forecasts.Add(new Forecast()
+            var tM = context.TotalizatorManagers.SingleOrDefault(t => t.TotalizatorId == totalId && t.UserId == userId);
+            foreach (var res in results)
             {
-                ForecastId = id + 1,
-                TotalizatorManagerId = totalManagerId,
-                TotalizatorManager = context.TotalizatorManagers.SingleOrDefault(tm => tm.TotalizatorManagerId == totalManagerId),
-                MatchId = res.MatchId,
-                Match = context.Matches.SingleOrDefault(m => m.MatchId == res.MatchId),
-                HomeTeamGoals = res.HomeTeamGoals,
-                GuestTeamGoals = res.GuestTeamPoints
-            });
+                int id = context.Forecasts.ToList().Count;
+                context.Forecasts.Add(new Forecast()
+                {
+                    ForecastId = id + 1,
+                    TotalizatorManagerId = tM.TotalizatorManagerId,
+                    TotalizatorManager = context.TotalizatorManagers.SingleOrDefault(tm => tm.TotalizatorManagerId == tM.TotalizatorManagerId),
+                    MatchId = res.MatchId,
+                    Match = context.Matches.SingleOrDefault(m => m.MatchId == res.MatchId),
+                    HomeTeamGoals = res.HomeTeamGoals,
+                    GuestTeamGoals = res.GuestTeamPoints
+                });
+            }
             context.SaveChanges();
-            
         }
 
         public bool UserHasAccess(int userId, int totalId)

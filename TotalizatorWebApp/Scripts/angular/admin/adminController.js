@@ -72,7 +72,7 @@
                 { field: "Name", title: "Name" },
                 { field: "OrganaizerLogin", title: "OrganaizerLogin" },
                 { field: "Access", title: "Access" },
-                { template: '<button class="btn-info" ng-click="onPointsCalculate(dataItem)" state-button><span class="glyphicon glyphicon-plus"></span></button>' }
+                //{ template: '<button class="btn-info" ng-click="onPointsCalculate(dataItem)" state-button><span class="glyphicon glyphicon-plus"></span></button>' }
             ],
             sortable: true,
             pageable: true
@@ -81,14 +81,15 @@
             columns: [
                 { field: "Login", title: "Login" },
                 { field: "FullName", title: "FullName" },
-                { field: "Points", title: "Points" }
-                //{ template: '<button class="btn-info" ng-click="onUserBanned(dataItem)" state-button><span class="glyphicon glyphicon-plus"></span></button>' }
+                { field: "Points", title: "Points" },
+                { template: '<button class="btn-info" ng-click="onUserBanned(dataItem)" state-button><span class="glyphicon glyphicon-plus"></span></button>' }
             ],
             sortable: true,
             pageable: true,
         };
 
         app.apiFunc = function () {
+            console.log('apiFunc', app.LeagueId, app.MatchDay);
             footballdataFactory.getFixturesBySeason({
                 //id: 426,
                 id: app.LeagueId,
@@ -96,6 +97,7 @@
                 //league: 'CL',
                 apiKey: apiKey,
             }).then(function (_data) {
+                console.log('++');
                 console.info("getFixturesBySeason", _data);
                 adminService.postResult(_data.data.fixtures)
             });

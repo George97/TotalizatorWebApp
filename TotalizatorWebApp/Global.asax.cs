@@ -1,16 +1,21 @@
-﻿using System;
+﻿using Ninject;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
+using TotalizatorWebApp.DAL.Abstraction.UnitOfWork;
 using TotalizatorWebApp.DAL.Concrete.UnitOfWork;
 
 namespace TotalizatorWebApp
 {
     public class MvcApplication : System.Web.HttpApplication
     {
+        [Inject]
+        public IUnitOfWork unitOfWork { get; set; }
+
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -29,7 +34,7 @@ namespace TotalizatorWebApp
                 {
                     try
                     {
-                        UnitOfWork unitOfWork = new UnitOfWork();
+                        //UnitOfWork unitOfWork = new UnitOfWork();
                         string login = FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).Name;
 
                         string roles = unitOfWork.UserRepository.GetUserRole(login);

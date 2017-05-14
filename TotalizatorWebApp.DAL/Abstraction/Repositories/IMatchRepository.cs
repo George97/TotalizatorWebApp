@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TotalizatorWebApp.Database.Entity.BusinessLayer;
 using TotalizatorWebApp.Database.Entity.MatchLayer;
 using TotalizatorWebApp.Database.Models.API;
 using TotalizatorWebApp.Database.Models.MatchLayer;
@@ -24,5 +25,7 @@ namespace TotalizatorWebApp.DAL.Abstraction.Repositories
         int SetMatchResult(List<FixtureView> results);
 
         void setPoints(int stageId, List<FixtureView> matchRes);
+
+        double calculateUserPoints(List<Forecast> forecasts, List<FixtureView> matchRes, PointsAnalysis pointsRules);
     }
 }

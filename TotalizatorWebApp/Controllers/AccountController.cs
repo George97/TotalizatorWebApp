@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Ninject;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using TotalizatorWebApp.Controllers.Data;
+using TotalizatorWebApp.DAL.Abstraction.UnitOfWork;
 using TotalizatorWebApp.DAL.Concrete.UnitOfWork;
 using TotalizatorWebApp.Models;
 
@@ -12,6 +14,9 @@ namespace TotalizatorWebApp.Controllers
 {
     public class AccountController : Controller
     {
+        [Inject]
+        public IUnitOfWork unitOfWork { get; set; }
+
         //private UnitOfWork unitOfWork = new UnitOfWork();
         // GET: Account
         public ActionResult Login()
@@ -25,7 +30,7 @@ namespace TotalizatorWebApp.Controllers
         {
             if (!ModelState.IsValid) return View(model);
             string msg;
-            var userValid = new DataController().UserExist(model.Username, model.Password,out msg);
+            var userValid = unitOfWork.UserRepository.UserExist(model.Username, model.Password,out msg);
             
             //bool userValid = unitOfWork.UserRepository.UserExist(model.Username, model.Password);
             if (userValid)
@@ -41,7 +46,7 @@ namespace TotalizatorWebApp.Controllers
                 }
                 else
                 {
-                   if(new DataController().GetUserRole(model.Username)=="Admin")
+                   if(unitOfWork.UserRepository.GetUserRole(model.Username)=="Admin")
                     {
                         return RedirectToAction("AdminPage", "Admin");
                     }

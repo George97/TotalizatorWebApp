@@ -7,7 +7,7 @@ using TotalizatorWebApp.DAL.Abstraction.Repositories;
 
 namespace TotalizatorWebApp.DAL.Abstraction.UnitOfWork
 {
-    interface IUnitOfWork
+    public interface IUnitOfWork: IDisposable
     {
         IMatchRepository MatchRepository { get; }
 

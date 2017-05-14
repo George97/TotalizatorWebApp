@@ -1,32 +1,36 @@
-﻿using System;
+﻿using Ninject;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TotalizatorWebApp.DAL.Abstraction.Repositories;
+using TotalizatorWebApp.DAL.Abstraction.UnitOfWork;
 using TotalizatorWebApp.DAL.Concrete.Repositories;
 using TotalizatorWebApp.Database.Context;
 
 namespace TotalizatorWebApp.DAL.Concrete.UnitOfWork
 {
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork : IUnitOfWork
     {
         private TotalizatorContext context;
-        private IMatchRepository matchRepository;
-        private ITotalizatorRepository totalizatorRepository;
-        private IUserRepository userRepository;
+        private IMatchRepository _matchRepository;
+        private ITotalizatorRepository _totalizatorRepository;
+        private IUserRepository _userRepository;
 
-       public UnitOfWork()
+        public UnitOfWork(IMatchRepository matchRepository, ITotalizatorRepository totalizatorRepository, IUserRepository userRepository)
         {
             context = new TotalizatorContext();
-            
+            _matchRepository = matchRepository;
+            _totalizatorRepository = totalizatorRepository;
+            _userRepository = userRepository;
         }
 
         public IMatchRepository MatchRepository
         {
             get
             {
-                return matchRepository ?? (matchRepository = new MatchRepository(context));
+                return _matchRepository;
             }
         }
 
@@ -34,7 +38,7 @@ namespace TotalizatorWebApp.DAL.Concrete.UnitOfWork
         {
             get
             {
-                return totalizatorRepository ?? (totalizatorRepository = new TotalizatorRepository(context));
+                return _totalizatorRepository; 
             }
         }
 
@@ -42,14 +46,8 @@ namespace TotalizatorWebApp.DAL.Concrete.UnitOfWork
         {
             get
             {
-                return userRepository ?? (userRepository = new UserRepository(context));
+                return _userRepository; 
             }
-        }
-
-
-        public void Save()
-        {
-            context.SaveChanges();
         }
 
         private bool disposed = false;

@@ -29,8 +29,6 @@ namespace TotalizatorWebApp.Database.Context
 
         public DbSet<Result> Results { get; set; }
 
-        //public DbSet<ForecastResult> ForecastResults { get; set; }
-
         public DbSet<User> Users { get; set; }
 
         public DbSet<Totalizator> Totalizators { get; set; }

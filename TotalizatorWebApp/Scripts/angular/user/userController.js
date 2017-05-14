@@ -37,17 +37,6 @@
         console.log('UserNgController');
         
         Init();
-
-        //footballdataFactory.getFixturesBySeason({
-        //    id: 426,
-        //    matchday: 34,
-        //    league: 'PL',
-        //    apiKey: apiKey,
-        //}).then(function (_data) {
-        //    console.info("getFixturesBySeason", _data);
-        //    userService.postResult(_data.data.fixtures)
-        //});
-
         
         app.onLeagueChange = function () {
             console.log('onLeagueChange');
@@ -69,8 +58,10 @@
         }
         app.onTotalizator = function (t) {
             app.SelectedTotal = t;
+            app.selectedTiD = t.TotalizatorId;
             userService.userHasAccess(app.currUser.UserId, t.TotalizatorId).then(function (respond) {
                 console.log(respond.data);
+                userService.setTManagerId(app.selectedTiD, app.currUser.UserId, respond.data);
                 if (respond.data=="True") {
                     userService.getBlunkResults(t.StageId).then(function (response) {
                         app.matchResults = response.data;
@@ -91,11 +82,10 @@
         }
 
         app.onForecast = function () {
-            userService.setTManagerId(app.selectedTiD, app.currUser.UserId)
-            .then(function (response) {
-                userService.setForecast(app.matchResults, response.data)
-                app.showMatches = false;
-            })
+            userService.setForecast(app.matchResults, app.selectedTiD, app.currUser.UserId)
+                .then(function (respond) {
+                    location.href = '/User/MakeForecast';
+                })
         }
         app.getUserOf = function (id) {
             console.log(id);
@@ -200,39 +190,6 @@
             console.lof(addedUsersId);
         }
 
-        //$scope.mainGridOptions = {
-        //    dataSource: {
-        //        transport: {
-        //            read: function (e) {
-        //                userService.getAllTotalizators().then(function (respond) {
-        //                    var t = respond.data;
-        //                    e.success(t);
-        //                })
-        //            }
-        //        },
-        //        pageSize: 5,
-        //        serverPaging: true,
-        //        serverSorting: true
-        //    },
-        //    sortable: true,
-        //    pageable: true,
-        //    //dataBound: function () {
-        //    //    this.expandRow(this.tbody.find("tr.k-master-row").first());
-        //    //},
-           
-        //    columns: [{
-        //        field: "Name",
-        //        title: "Name",
-        //        width: "120px"
-        //    },{
-        //        field: "isPublic",
-        //        title: "isPublic",
-        //        width: "240px"
-        //    }
-        //        //{ command: { text: "Add", click: app.onUserAdd(dataItem) }, title: " ", width: "180px" }
-        //        //{ template: '<button class="btn-info" ng-click="onUserAdd(dataItem)" state-button><span class="glyphicon glyphicon-plus"></span></button>' }
-        //    ]
-        //};
         $scope.leaguesDataSource = {
             transport: {
                 read: function (e) {

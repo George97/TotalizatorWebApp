@@ -9,6 +9,7 @@ using TotalizatorWebApp.DAL.Services;
 using TotalizatorWebApp.Database.Context;
 using TotalizatorWebApp.Database.Entity.BusinessLayer;
 using TotalizatorWebApp.Database.Entity.MatchLayer;
+using TotalizatorWebApp.Database.Entity.UserLayer;
 using TotalizatorWebApp.Database.Models.API;
 using TotalizatorWebApp.Database.Models.MatchLayer;
 
@@ -97,16 +98,17 @@ namespace TotalizatorWebApp.DAL.Concrete.Repositories
                 if(match!= null)
                 {
                     stageId = match.StageId;
-                        if (match.Stage.MatchDay == res.matchday)
+                    var resultCopy = context.Results.SingleOrDefault(r => r.MatchId == match.MatchId);
+                    if (resultCopy == null)
+                    {
+                        context.Results.Add(new Result()
                         {
-                            context.Results.Add(new Result()
-                            {
-                                MatchId = match.MatchId,
-                                Match = match,
-                                HomeTeamGoals = res.result.goalsHomeTeam,
-                                GuestTeamGoals = res.result.goalsAwayTeam
-                            });
-                        }
+                            MatchId = match.MatchId,
+                            Match = match,
+                            HomeTeamGoals = res.result.goalsHomeTeam,
+                            GuestTeamGoals = res.result.goalsAwayTeam
+                        });
+                    }
                 }
 
             }
@@ -134,41 +136,64 @@ namespace TotalizatorWebApp.DAL.Concrete.Repositories
                 var tManagers = context.TotalizatorManagers.Where(tm => tm.TotalizatorId == t.TotalizatorId).ToList();
                 foreach (var manager in tManagers)
                 {
-                    double sum = 0;
                     var user = manager.User;
                     var pointsRules = manager.Totalizator.PointsAnalysis;
                     var forecasts = context.Forecasts.Where(f => f.TotalizatorManagerId == manager.TotalizatorManagerId).ToList();
-                    foreach (var forecast in forecasts)
-                    {
-                        var currRes = matchRes.Single(m => m.awayTeamName == forecast.Match.GuestTeam.Name && m.homeTeamName == forecast.Match.HomeTeam.Name);
-                        if (forecast.GuestTeamGoals == currRes.result.goalsAwayTeam && forecast.HomeTeamGoals == currRes.result.goalsHomeTeam)
-                        {
-                            sum += pointsRules.Full;
-                        }
-                        else
-                        {
-                            string winnerResName = currRes.result.goalsHomeTeam > currRes.result.goalsAwayTeam ?
-                                                currRes.homeTeamName : currRes.awayTeamName;
-                            string winnerUserName = forecast.HomeTeamGoals > forecast.GuestTeamGoals ?
-                                                forecast.Match.HomeTeam.Name : forecast.Match.GuestTeam.Name;
-                            if(forecast.GuestTeamGoals - forecast.HomeTeamGoals == currRes.result.goalsAwayTeam - currRes.result.goalsHomeTeam)
-                            {
-                                sum += pointsRules.GoalDif;
-                            }
-                            else if(winnerResName == winnerUserName)
-                            {
-                                sum += pointsRules.JustWinner;
-                            }
-                        }
-                        
-                    }
-                    var s = sum / (double)matchRes.Count;
-                    user.Points += sum / (double)matchRes.Count;
-                    context.Users.Attach(user);
-                    context.Entry(user).Property(u => u.Points).IsModified = true;
+                    user.Points += calculateUserPoints(forecasts, matchRes, pointsRules);
+                    //context.Users.Attach(user); ????
+                    //context.Entry(user).Property(u => u.Points).IsModified = true;
                 }
             }
             context.SaveChanges();
+        }
+
+        public double  calculateUserPoints(List<Forecast> forecasts, List<FixtureView> matchRes, PointsAnalysis pointsRules)
+        {
+            if (!EntityHelper.isValidRules(pointsRules))
+            {
+                throw new ArgumentException("Incorrect values. Please, enter some positive numbers");
+            }
+            double sum = 0;
+            foreach (var forecast in forecasts)
+            {
+                var currRes = matchRes.Single(m => m.awayTeamName == forecast.Match.GuestTeam.Name && m.homeTeamName == forecast.Match.HomeTeam.Name);
+                if (forecast.GuestTeamGoals == currRes.result.goalsAwayTeam && forecast.HomeTeamGoals == currRes.result.goalsHomeTeam)
+                {
+                    sum += pointsRules.Full;
+                }
+                else
+                {
+                    string winnerResName = getWinnerName(currRes.homeTeamName, currRes.result.goalsHomeTeam,
+                                                         currRes.awayTeamName, currRes.result.goalsAwayTeam);
+
+                    string winnerUserName = getWinnerName(forecast.Match.HomeTeam.Name, forecast.HomeTeamGoals,
+                                                          forecast.Match.GuestTeam.Name, forecast.GuestTeamGoals);
+
+                    if (winnerResName == winnerUserName)
+                    {
+                        if (forecast.GuestTeamGoals - forecast.HomeTeamGoals == currRes.result.goalsAwayTeam - currRes.result.goalsHomeTeam)
+                        {
+                            sum += pointsRules.GoalDif;
+                        }
+                        else
+                        {
+                            sum += pointsRules.JustWinner;
+                        }
+                    }
+                }
+
+            }
+            var s = sum / (double)matchRes.Count;
+            return sum / (double)matchRes.Count;
+        }
+        
+        private string getWinnerName(string team1, int golTeam1, string team2, int goalTeam2)
+        {
+            if(golTeam1 == goalTeam2)
+            {
+                return null;
+            }
+            return golTeam1 > goalTeam2 ? team1 : team2;
         }
     }
 }

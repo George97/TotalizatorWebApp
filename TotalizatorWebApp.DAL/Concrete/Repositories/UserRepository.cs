@@ -79,7 +79,7 @@ namespace TotalizatorWebApp.DAL.Concrete.Repositories
                     Totalizator = total
                 };
                 context.Notifications.Add(notification);
-                //context.SaveChanges();
+                context.SaveChanges();
                 //int index = context.Notifications.ToList().Count;
                 //context.Notifications.ToList().Last().NotificationId = index;
             }
@@ -93,40 +93,44 @@ namespace TotalizatorWebApp.DAL.Concrete.Repositories
         public void AcceptUser(int userId,int totalId)
         {
             setUserAcces(userId, totalId, true);
+            context.SaveChanges();
         }
 
         public void RejectUser(int userId, int totalId)
         {
             setUserAcces(userId, totalId, false);
+            context.SaveChanges();
         }
 
         private void setUserAcces(int userId, int totalId,bool Access)
         {
             var total = context.Totalizators.SingleOrDefault(t => t.TotalizatorId == totalId);
             var user = context.Users.SingleOrDefault(u => u.UserId == userId);
-            var tmanagers = context.TotalizatorManagers.Where(tM => tM.TotalizatorId == totalId && tM.UserId == userId).ToList();
-            if(tmanagers.Count>0)
+            var tmanager = context.TotalizatorManagers.SingleOrDefault(tM => tM.TotalizatorId == totalId && tM.UserId == userId);
+            if(tmanager != null)
             {
-                foreach (var t in tmanagers)
-                {
-                    context.TotalizatorManagers.Remove(t);
-                }
+                context.TotalizatorManagers.Single(tm => tm.TotalizatorManagerId == tmanager.TotalizatorManagerId).UserAccess = Access;
+                //foreach (var t in tmanagers)
+                //{
+                //    context.TotalizatorManagers.Remove(t);
+                //}
             }
-            TotalizatorManager tm = new TotalizatorManager()
-            {
-                TotalizatorId = totalId,
-                Totalizator = total,
-                UserId = userId,
-                User = user,
-                UserAccess = Access
-            };
-            context.TotalizatorManagers.Add(tm);
+            //TotalizatorManager tm = new TotalizatorManager()
+            //{
+            //    TotalizatorId = totalId,
+            //    Totalizator = total,
+            //    UserId = userId,
+            //    User = user,
+            //    UserAccess = Access
+            //};
+            //context.TotalizatorManagers.Add(tm);
         }
 
         public void RemoveNotification(int id)
         {
             var notification =context.Notifications.SingleOrDefault(n => n.NotificationId == id);
             context.Notifications.Remove(notification);
+            context.SaveChanges();
         }
 
         public void BanUser(int userId)
