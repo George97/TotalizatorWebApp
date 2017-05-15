@@ -77,24 +77,57 @@ namespace TotalizatorWebApp.DAL.Concrete.Repositories
 
         }
 
+        //public List<Totalizator> GetValidForUser(int userId, DateTime date) //валідність по даті і по унікальності прогнозу на тоталізатор
+        //{
+        //    List<Totalizator> res = new List<Totalizator>();
+        //    var all = context.Totalizators.ToList();
+        //    foreach (var t in all)
+        //    {
+        //        if(t.Validity> date)
+        //        {
+        //            bool isValid = true;
+        //            var totalizatorManager = context.TotalizatorManagers.SingleOrDefault(tm => tm.TotalizatorId == t.TotalizatorId && tm.UserId == userId);
+        //            if(totalizatorManager != null)
+        //            {
+        //               if(context.Forecasts.Where(f => f.TotalizatorManagerId == totalizatorManager.TotalizatorManagerId).ToList().Count>0)
+        //                {
+        //                    isValid = false;
+        //                }
+        //            }
+        //            if(isValid)
+        //            {
+        //                res.Add(t);
+        //            }
+        //        }
+        //    }
+        //    return res;
+        //}
+
         public List<Totalizator> GetValidForUser(int userId, DateTime date) //валідність по даті і по унікальності прогнозу на тоталізатор
         {
-            List<Totalizator> res = new List<Totalizator>();
             var all = context.Totalizators.ToList();
-            foreach (var t in all)
+            var tManagers = context.TotalizatorManagers.ToList();
+            var forecasts = context.Forecasts.ToList();
+            return getValidForUser(userId, date, all, tManagers, forecasts);
+        }
+
+        public List<Totalizator> getValidForUser(int userId, DateTime date,List<Totalizator> totalizators, List<TotalizatorManager> tManagers,List<Forecast> forecasts)
+        {
+            List<Totalizator> res = new List<Totalizator>();
+            foreach (var t in totalizators)
             {
-                if(t.Validity> date)
+                if (t.Validity > date)
                 {
                     bool isValid = true;
-                    var totalizatorManager = context.TotalizatorManagers.SingleOrDefault(tm => tm.TotalizatorId == t.TotalizatorId && tm.UserId == userId);
-                    if(totalizatorManager != null)
+                    var totalizatorManager = tManagers.SingleOrDefault(tm => tm.TotalizatorId == t.TotalizatorId && tm.UserId == userId); // user has acces ???
+                    if (totalizatorManager != null)
                     {
-                       if(context.Forecasts.Where(f => f.TotalizatorManagerId == totalizatorManager.TotalizatorManagerId).ToList().Count>0)
+                        if (forecasts.Where(f => f.TotalizatorManagerId == totalizatorManager.TotalizatorManagerId).ToList().Count > 0)
                         {
                             isValid = false;
                         }
                     }
-                    if(isValid)
+                    if (isValid)
                     {
                         res.Add(t);
                     }

@@ -4,13 +4,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TotalizatorWebApp.DAL.Concrete.Repositories;
 
 namespace UnitTestProject
 {
-    //[TestMethod]
-    //public class TotalizatorValidDateTest
-    //{
+    [TestClass]
+    public class TotalizatorValidDateTest
+    {
+        [TestMethod]
+        public void ValidTotalizatorsTest()
+        {
+            TotalizatorRepository totalRepository = new TotalizatorRepository(null);
 
+        }
 
-    //}
+    }
 }

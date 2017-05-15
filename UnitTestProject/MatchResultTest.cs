@@ -45,7 +45,6 @@ namespace UnitTestProject
 
             //Act
             double sum1 = matchRepository.calculateUserPoints(forecast1, DataStorage.fixtures, rules1);
-            //double sum2 = matchRepository.calculateUserPoints(forecast3, DataStorage.fixtures, rules2);
 
             //Assert
             Assert.AreEqual(expSum1, sum1);
