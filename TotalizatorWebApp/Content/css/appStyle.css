@@ -198,5 +198,26 @@
     margin-top:40px;
 }
 
+.logForm{
+    width: 45%;
+    min-width: 500px;
+    height: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #e3e3e3;
+}
+
+.banner{
+    width: 100%;
+    height: 30px;
+    background-color: #1996e4;
+}
+
+.loginBody{
+    width:80%;
+    margin-left: auto;
+    padding:10px;
+    margin-top:20px;
+}
 
 

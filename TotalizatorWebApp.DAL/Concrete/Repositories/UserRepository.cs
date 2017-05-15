@@ -21,7 +21,7 @@ namespace TotalizatorWebApp.DAL.Concrete.Repositories
         }
         public List<User> GetUsers()
         {
-            return context.Users.ToList();
+            return context.Users.Where(u => u.Roles != "Admin").ToList();
         }
         public bool UserExist(string login, string pass,out string msg)
         {

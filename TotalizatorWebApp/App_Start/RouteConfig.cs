@@ -17,7 +17,8 @@ namespace TotalizatorWebApp
                 name: "Default",
                 url: "{controller}/{action}",
                                 //defaults: new { controller = "Admin", action = "AdminPage", id = UrlParameter.Optional }
-                                defaults: new { controller = "User", action = "Index", id = UrlParameter.Optional }
+                                //defaults: new { controller = "User", action = "Index", id = UrlParameter.Optional }
+                                defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional }
 
             );
         }

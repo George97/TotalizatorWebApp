@@ -21,6 +21,8 @@ VALUES ('Yura Maluga','admin','777',0,'Admin',0)
 INSERT INTO Users (FullName,Login,Password,Points,isBanned)
 VALUES ('Matsko Vova' , 'Nilan','1111',0,0),('Fai Vasia','lasaV','1111',0,0),('Peleh Bohdan','Batia','1111',0,0),
        ('Olia Solar','o_Soliar','1111',0,0),('Diana Kruskuw','DianaDiana','1111',0,0),('Vladik Bug','vladik','1111',0,0);
+INSERT INTO Users (FullName,Login,Password,Points,isBanned)
+VALUES ('Katia Fedak','k_Fedak','1111',0,0),('Nina Piatenko','n_5enko','1111',0,0)
 
 INSERT INTO Teams (Name) 
 VALUES ('Real Madrid CF'),('Club Atlético de Madrid'),('AS Monaco FC'),('Juventus Turin'),('Leicester City FC'),('FC Bayern München'),

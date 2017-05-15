@@ -77,32 +77,6 @@ namespace TotalizatorWebApp.DAL.Concrete.Repositories
 
         }
 
-        //public List<Totalizator> GetValidForUser(int userId, DateTime date) //валідність по даті і по унікальності прогнозу на тоталізатор
-        //{
-        //    List<Totalizator> res = new List<Totalizator>();
-        //    var all = context.Totalizators.ToList();
-        //    foreach (var t in all)
-        //    {
-        //        if(t.Validity> date)
-        //        {
-        //            bool isValid = true;
-        //            var totalizatorManager = context.TotalizatorManagers.SingleOrDefault(tm => tm.TotalizatorId == t.TotalizatorId && tm.UserId == userId);
-        //            if(totalizatorManager != null)
-        //            {
-        //               if(context.Forecasts.Where(f => f.TotalizatorManagerId == totalizatorManager.TotalizatorManagerId).ToList().Count>0)
-        //                {
-        //                    isValid = false;
-        //                }
-        //            }
-        //            if(isValid)
-        //            {
-        //                res.Add(t);
-        //            }
-        //        }
-        //    }
-        //    return res;
-        //}
-
         public List<Totalizator> GetValidForUser(int userId, DateTime date) //валідність по даті і по унікальності прогнозу на тоталізатор
         {
             var all = context.Totalizators.ToList();
@@ -122,6 +96,7 @@ namespace TotalizatorWebApp.DAL.Concrete.Repositories
                     var totalizatorManager = tManagers.SingleOrDefault(tm => tm.TotalizatorId == t.TotalizatorId && tm.UserId == userId); // user has acces ???
                     if (totalizatorManager != null)
                     {
+                        isValid = totalizatorManager.UserAccess != null ? (bool)totalizatorManager.UserAccess : isValid;
                         if (forecasts.Where(f => f.TotalizatorManagerId == totalizatorManager.TotalizatorManagerId).ToList().Count > 0)
                         {
                             isValid = false;
@@ -164,10 +139,6 @@ namespace TotalizatorWebApp.DAL.Concrete.Repositories
             };
             context.Totalizators.Add(totalizator);
             context.SaveChanges();
-            //if (!isPublic)
-            //{
-            //    SetManagerId(totalizatorId, organaizerId);
-            //}
             return totalizatorId;
         }
 

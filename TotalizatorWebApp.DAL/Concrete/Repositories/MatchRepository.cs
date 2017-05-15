@@ -140,8 +140,7 @@ namespace TotalizatorWebApp.DAL.Concrete.Repositories
                     var pointsRules = manager.Totalizator.PointsAnalysis;
                     var forecasts = context.Forecasts.Where(f => f.TotalizatorManagerId == manager.TotalizatorManagerId).ToList();
                     user.Points += calculateUserPoints(forecasts, matchRes, pointsRules);
-                    //context.Users.Attach(user); ????
-                    //context.Entry(user).Property(u => u.Points).IsModified = true;
+                    context.Forecasts.RemoveRange(forecasts);
                 }
             }
             context.SaveChanges();
@@ -183,7 +182,6 @@ namespace TotalizatorWebApp.DAL.Concrete.Repositories
                 }
 
             }
-            var s = sum / (double)matchRes.Count;
             return sum / (double)matchRes.Count;
         }
         
